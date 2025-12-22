@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical Medication Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Clinical Medication Calculator</h1>
+        <p class="subtitle">Nursing & Clinical Staff Reference Tool</p>
+    </header>
+
+    <div class="disclaimer">
+        <strong>DISCLAIMER:</strong> This tool is for reference purposes only. Always verify calculations independently and follow institutional protocols. This calculator does not replace clinical judgment or pharmacist consultation.
+    </div>
+
+    <nav class="tab-nav">
+        <button class="tab-btn active" data-tab="weight-dose">Weight-Based</button>
+        <button class="tab-btn" data-tab="antibiotics">Medications</button>
+        <button class="tab-btn" data-tab="drip-rate">IV Drip Rate</button>
+        <button class="tab-btn" data-tab="dilution">Dilution</button>
+    </nav>
+
+    <main>
+        <!-- Weight-Based Dosing Calculator -->
+        <section id="weight-dose" class="calculator-section active">
+            <h2>Weight-Based Dosing Calculator</h2>
+            <p class="description">Calculate medication dose based on patient weight (mg/kg dosing)</p>
+
+            <div class="input-group">
+                <label for="patient-weight">Patient Weight</label>
+                <div class="input-with-unit">
+                    <input type="number" id="patient-weight" step="0.1" min="0" placeholder="Enter weight">
+                    <select id="weight-unit">
+                        <option value="kg">kg</option>
+                        <option value="lb">lb</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="dose-per-kg">Dose per kg</label>
+                <div class="input-with-unit">
+                    <input type="number" id="dose-per-kg" step="0.01" min="0" placeholder="Enter dose">
+                    <select id="dose-unit">
+                        <option value="mg">mg/kg</option>
+                        <option value="mcg">mcg/kg</option>
+                        <option value="units">units/kg</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="frequency">Frequency (optional)</label>
+                <select id="frequency">
+                    <option value="1">Once daily (QD)</option>
+                    <option value="2">Twice daily (BID)</option>
+                    <option value="3">Three times daily (TID)</option>
+                    <option value="4">Four times daily (QID)</option>
+                    <option value="6">Every 4 hours (Q4H)</option>
+                    <option value="8">Every 3 hours (Q3H)</option>
+                </select>
+            </div>
+
+            <button class="calculate-btn" onclick="calculateWeightDose()">Calculate Dose</button>
+
+            <div id="weight-dose-result" class="result-box hidden">
+                <h3>Results</h3>
+                <div class="result-item">
+                    <span class="label">Single Dose:</span>
+                    <span id="single-dose" class="value"></span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Daily Total:</span>
+                    <span id="daily-dose" class="value"></span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Weight Used:</span>
+                    <span id="weight-used" class="value"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Medication Dosing Calculator -->
+        <section id="antibiotics" class="calculator-section">
+            <h2>Medication Dosing Calculator</h2>
+            <p class="description">Select medication for weight-based dosing with renal adjustments</p>
+
+            <div class="input-group">
+                <label for="abx-category">Category</label>
+                <select id="abx-category" onchange="updateAntibioticList()">
+                    <optgroup label="Antibiotics">
+                        <option value="iv-common">Common IV Antibiotics</option>
+                        <option value="aminoglycosides">Aminoglycosides</option>
+                        <option value="pediatric">Pediatric Oral Antibiotics</option>
+                        <option value="icu">ICU / Critical Care</option>
+                        <option value="general">General Ward</option>
+                    </optgroup>
+                    <optgroup label="Pediatric Medications">
+                        <option value="antiseizure">Antiseizure Medications</option>
+                        <option value="nephrology">Nephrology</option>
+                        <option value="cardiac">Cardiac / Cardiovascular</option>
+                        <option value="respiratory">Respiratory</option>
+                        <option value="gi">GI Medications</option>
+                        <option value="pain-sedation">Pain / Sedation</option>
+                        <option value="electrolytes">Electrolytes & Vitamins</option>
+                        <option value="other-pediatric">Other Pediatric</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="med-search">Search Medication (generic or brand name)</label>
+                <div class="search-container">
+                    <input type="text" id="med-search" placeholder="e.g., Keppra, Lasix, Vancomycin..." oninput="searchMedication(this.value)">
+                    <div id="search-results" class="search-results hidden"></div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="abx-select">Or Select from List</label>
+                <select id="abx-select" onchange="updateAntibioticInfo()">
+                    <option value="">-- Select Medication --</option>
+                </select>
+            </div>
+
+            <div id="abx-info" class="info-box hidden">
+                <div class="info-row">
+                    <span class="info-label">Standard Dose:</span>
+                    <span id="abx-standard-dose" class="info-value"></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Frequency:</span>
+                    <span id="abx-frequency" class="info-value"></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Max Daily Dose:</span>
+                    <span id="abx-max-dose" class="info-value"></span>
+                </div>
+                <div class="info-row" id="abx-notes-row">
+                    <span class="info-label">Notes:</span>
+                    <span id="abx-notes" class="info-value"></span>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="abx-patient-weight">Patient Weight</label>
+                <div class="input-with-unit">
+                    <input type="number" id="abx-patient-weight" step="0.1" min="0" placeholder="Enter weight">
+                    <select id="abx-weight-unit">
+                        <option value="kg">kg</option>
+                        <option value="lb">lb</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="abx-age-group">Patient Age Group</label>
+                <select id="abx-age-group" onchange="updateAntibioticInfo()">
+                    <option value="adult">Adult (≥18 years)</option>
+                    <option value="pediatric">Pediatric (1 mo - 17 yr)</option>
+                    <option value="neonate">Neonate (< 1 month)</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="abx-renal">Renal Function (CrCl)</label>
+                <select id="abx-renal">
+                    <option value="normal">Normal (≥90 mL/min)</option>
+                    <option value="mild">Mild Impairment (60-89 mL/min)</option>
+                    <option value="moderate">Moderate (30-59 mL/min)</option>
+                    <option value="severe">Severe (15-29 mL/min)</option>
+                    <option value="esrd">ESRD/Dialysis (<15 mL/min)</option>
+                </select>
+            </div>
+
+            <div class="input-group" id="abx-indication-group">
+                <label for="abx-indication">Indication (optional)</label>
+                <select id="abx-indication">
+                    <option value="standard">Standard Infection</option>
+                    <option value="severe">Severe/Life-threatening</option>
+                    <option value="meningitis">Meningitis</option>
+                    <option value="endocarditis">Endocarditis</option>
+                </select>
+            </div>
+
+            <button class="calculate-btn" onclick="calculateAntibioticDose()">Calculate Dose</button>
+
+            <div id="abx-result" class="result-box hidden">
+                <h3>Recommended Dosing</h3>
+                <div class="result-item">
+                    <span class="label">Single Dose:</span>
+                    <span id="abx-single-dose" class="value"></span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Frequency:</span>
+                    <span id="abx-result-freq" class="value"></span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Daily Total:</span>
+                    <span id="abx-daily-total" class="value"></span>
+                </div>
+                <div class="result-item" id="abx-renal-adj-row" style="display: none;">
+                    <span class="label">Renal Adjustment:</span>
+                    <span id="abx-renal-adj" class="value"></span>
+                </div>
+                <div class="result-item">
+                    <span class="label">Route:</span>
+                    <span id="abx-route" class="value"></span>
+                </div>
+                <div id="abx-warnings" class="warning-box hidden"></div>
+            </div>
+        </section>
+
+        <!-- IV Drip Rate Calculator -->
+        <section id="drip-rate" class="calculator-section">
+            <h2>IV Drip Rate Calculator</h2>
+            <p class="description">Calculate infusion rate in mL/hr or drops/min</p>
+
+            <div class="calc-mode-toggle">
+                <button class="mode-btn active" data-mode="volume">Volume-Based</button>
+                <button class="mode-btn" data-mode="dose">Dose-Based</button>
+            </div>
+
+            <!-- Volume-Based Mode -->
+            <div id="volume-mode" class="mode-content active">
+                <div class="input-group">
+                    <label for="total-volume">Total Volume to Infuse</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="total-volume" step="1" min="0" placeholder="Enter volume">
+                        <span class="unit-label">mL</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="infusion-time">Infusion Time</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="infusion-time" step="0.1" min="0" placeholder="Enter time">
+                        <select id="time-unit">
+                            <option value="hr">hours</option>
+                            <option value="min">minutes</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="drop-factor">Drop Factor (gtt/mL)</label>
+                    <select id="drop-factor">
+                        <option value="10">Macrodrip - 10 gtt/mL</option>
+                        <option value="15">Macrodrip - 15 gtt/mL</option>
+                        <option value="20">Macrodrip - 20 gtt/mL</option>
+                        <option value="60">Microdrip - 60 gtt/mL</option>
+                    </select>
+                </div>
+
+                <button class="calculate-btn" onclick="calculateDripRate()">Calculate Rate</button>
+            </div>
+
+            <!-- Dose-Based Mode -->
+            <div id="dose-mode" class="mode-content">
+                <div class="input-group">
+                    <label for="drug-amount">Drug Amount in Bag</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="drug-amount" step="0.1" min="0" placeholder="Enter amount">
+                        <select id="drug-amount-unit">
+                            <option value="mg">mg</option>
+                            <option value="mcg">mcg</option>
+                            <option value="units">units</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="bag-volume">Bag Volume</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="bag-volume" step="1" min="0" placeholder="Enter volume">
+                        <span class="unit-label">mL</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="desired-dose">Desired Dose Rate</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="desired-dose" step="0.01" min="0" placeholder="Enter dose">
+                        <select id="desired-dose-unit">
+                            <option value="mg/hr">mg/hr</option>
+                            <option value="mcg/hr">mcg/hr</option>
+                            <option value="mcg/min">mcg/min</option>
+                            <option value="units/hr">units/hr</option>
+                            <option value="mcg/kg/min">mcg/kg/min</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group" id="dose-weight-group" style="display: none;">
+                    <label for="dose-patient-weight">Patient Weight (for mcg/kg/min)</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="dose-patient-weight" step="0.1" min="0" placeholder="Enter weight">
+                        <span class="unit-label">kg</span>
+                    </div>
+                </div>
+
+                <button class="calculate-btn" onclick="calculateDoseBasedRate()">Calculate Rate</button>
+            </div>
+
+            <div id="drip-rate-result" class="result-box hidden">
+                <h3>Results</h3>
+                <div class="result-item">
+                    <span class="label">Flow Rate:</span>
+                    <span id="flow-rate" class="value"></span>
+                </div>
+                <div class="result-item" id="drops-result">
+                    <span class="label">Drop Rate:</span>
+                    <span id="drop-rate" class="value"></span>
+                </div>
+                <div class="result-item" id="duration-result">
+                    <span class="label">Duration:</span>
+                    <span id="duration" class="value"></span>
+                </div>
+                <div class="result-item" id="concentration-result" style="display: none;">
+                    <span class="label">Concentration:</span>
+                    <span id="concentration" class="value"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Drug Dilution Calculator -->
+        <section id="dilution" class="calculator-section">
+            <h2>Drug Dilution Calculator</h2>
+            <p class="description">Calculate dilution ratios and final concentrations</p>
+
+            <div class="calc-mode-toggle">
+                <button class="mode-btn active" data-mode="target-conc">Target Concentration</button>
+                <button class="mode-btn" data-mode="reconstitution">Reconstitution</button>
+            </div>
+
+            <!-- Target Concentration Mode -->
+            <div id="target-conc-mode" class="mode-content active">
+                <div class="input-group">
+                    <label for="stock-conc">Stock Concentration</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="stock-conc" step="0.01" min="0" placeholder="Enter concentration">
+                        <select id="stock-conc-unit">
+                            <option value="mg/mL">mg/mL</option>
+                            <option value="mcg/mL">mcg/mL</option>
+                            <option value="units/mL">units/mL</option>
+                            <option value="%">% (g/100mL)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="target-conc">Desired Final Concentration</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="target-conc" step="0.01" min="0" placeholder="Enter target">
+                        <select id="target-conc-unit">
+                            <option value="mg/mL">mg/mL</option>
+                            <option value="mcg/mL">mcg/mL</option>
+                            <option value="units/mL">units/mL</option>
+                            <option value="%">% (g/100mL)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="final-volume">Desired Final Volume</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="final-volume" step="1" min="0" placeholder="Enter volume">
+                        <span class="unit-label">mL</span>
+                    </div>
+                </div>
+
+                <button class="calculate-btn" onclick="calculateDilution()">Calculate Dilution</button>
+            </div>
+
+            <!-- Reconstitution Mode -->
+            <div id="reconstitution-mode" class="mode-content">
+                <div class="input-group">
+                    <label for="powder-amount">Drug Powder Amount</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="powder-amount" step="0.1" min="0" placeholder="Enter amount">
+                        <select id="powder-unit">
+                            <option value="mg">mg</option>
+                            <option value="g">g</option>
+                            <option value="mcg">mcg</option>
+                            <option value="units">units</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="diluent-volume">Diluent Volume to Add</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="diluent-volume" step="0.1" min="0" placeholder="Enter volume">
+                        <span class="unit-label">mL</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="desired-dose-recon">Dose Needed</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="desired-dose-recon" step="0.1" min="0" placeholder="Enter dose">
+                        <select id="desired-dose-recon-unit">
+                            <option value="mg">mg</option>
+                            <option value="g">g</option>
+                            <option value="mcg">mcg</option>
+                            <option value="units">units</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="calculate-btn" onclick="calculateReconstitution()">Calculate Volume</button>
+            </div>
+
+            <div id="dilution-result" class="result-box hidden">
+                <h3>Results</h3>
+                <div class="result-item" id="stock-vol-result">
+                    <span class="label">Stock Solution Needed:</span>
+                    <span id="stock-volume" class="value"></span>
+                </div>
+                <div class="result-item" id="diluent-vol-result">
+                    <span class="label">Diluent to Add:</span>
+                    <span id="diluent-add" class="value"></span>
+                </div>
+                <div class="result-item" id="final-conc-result">
+                    <span class="label">Final Concentration:</span>
+                    <span id="final-conc" class="value"></span>
+                </div>
+                <div class="result-item" id="volume-draw-result" style="display: none;">
+                    <span class="label">Volume to Draw:</span>
+                    <span id="volume-draw" class="value"></span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p><strong>Important:</strong> Double-check all calculations. Report any errors immediately.</p>
+        <p class="version">Version 1.0 | For educational and reference use only</p>
+    </footer>
+
+    <script src="calculator.js"></script>
+</body>
+</html>
