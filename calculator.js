@@ -440,7 +440,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Load then PRN', note: '15-20 mg/kg load, redose when trough <15-20' }
             },
             notes: 'Monitor trough levels. Target trough 15-20 mcg/mL for serious infections.',
-            warnings: ['Nephrotoxic', 'Red man syndrome with rapid infusion', 'Monitor levels']
+            warnings: ['Nephrotoxic', 'Red man syndrome with rapid infusion', 'Monitor levels'],
+            reference: 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7462027/'
         },
         'piperacillin-tazobactam': {
             name: 'Piperacillin-Tazobactam (Zosyn)',
@@ -456,7 +457,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '2.25g Q12H', note: 'Post-HD dosing' }
             },
             notes: 'Extended infusion (4hr) may improve outcomes for serious infections.',
-            warnings: ['Contains sodium', 'May cause hypokalemia']
+            warnings: ['Contains sodium', 'May cause hypokalemia'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK551665/'
         },
         'ceftriaxone': {
             name: 'Ceftriaxone (Rocephin)',
@@ -466,7 +468,8 @@ const antibioticDatabase = {
             neonate: { dose: 50, unit: 'mg/kg', frequency: 'Q24H', maxDaily: null },
             renalAdjust: false,
             notes: 'Meningitis: 2g Q12H (adult) or 100 mg/kg/day divided Q12H (peds).',
-            warnings: ['Avoid in neonates with hyperbilirubinemia', 'Do not mix with calcium']
+            warnings: ['Avoid in neonates with hyperbilirubinemia', 'Do not mix with calcium'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK555892/'
         },
         'meropenem': {
             name: 'Meropenem (Merrem)',
@@ -482,7 +485,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '500mg Q24H', note: 'Post-HD dosing recommended' }
             },
             notes: 'Meningitis dosing: 2g Q8H. Extended infusion may benefit severe infections.',
-            warnings: ['May lower seizure threshold', 'Avoid with valproic acid']
+            warnings: ['May lower seizure threshold', 'Avoid with valproic acid'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK557755/'
         },
         'cefepime': {
             name: 'Cefepime (Maxipime)',
@@ -498,7 +502,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '1g Q24H', note: 'Give after HD' }
             },
             notes: 'Pseudomonal coverage. Good CNS penetration.',
-            warnings: ['Neurotoxicity risk in renal impairment', 'Monitor for encephalopathy']
+            warnings: ['Neurotoxicity risk in renal impairment', 'Monitor for encephalopathy'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK557755/'
         },
         'cefazolin': {
             name: 'Cefazolin (Ancef)',
@@ -514,7 +519,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '1-2g Q48-72H', note: 'Post-HD dosing' }
             },
             notes: 'First-line for skin/soft tissue, surgical prophylaxis.',
-            warnings: ['Cross-reactivity with penicillin allergy (1-2%)']
+            warnings: ['Cross-reactivity with penicillin allergy (1-2%)'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK551653/'
         },
         'ampicillin-sulbactam': {
             name: 'Ampicillin-Sulbactam (Unasyn)',
@@ -530,7 +536,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '1.5-3g Q24H', note: 'Post-HD dosing' }
             },
             notes: 'Good for intra-abdominal, gynecologic infections.',
-            warnings: ['Penicillin allergy', 'May cause rash']
+            warnings: ['Penicillin allergy', 'May cause rash'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK545280/'
         },
         'metronidazole': {
             name: 'Metronidazole (Flagyl)',
@@ -540,7 +547,8 @@ const antibioticDatabase = {
             neonate: { dose: 7.5, unit: 'mg/kg', frequency: 'Q12-24H', maxDaily: null },
             renalAdjust: false,
             notes: 'Anaerobic coverage. C. diff: 500mg PO TID x 10-14 days.',
-            warnings: ['Disulfiram reaction with alcohol', 'Metallic taste', 'Peripheral neuropathy with prolonged use']
+            warnings: ['Disulfiram reaction with alcohol', 'Metallic taste', 'Peripheral neuropathy with prolonged use'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK539793/'
         },
         'aztreonam': {
             name: 'Aztreonam (Azactam)',
@@ -556,7 +564,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '500mg Q12H', note: 'Post-HD dosing' }
             },
             notes: 'Safe in penicillin/cephalosporin allergy. Gram-negative only.',
-            warnings: ['No gram-positive coverage', 'No anaerobic coverage']
+            warnings: ['No gram-positive coverage', 'No anaerobic coverage'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK547696/'
         },
         'ciprofloxacin-iv': {
             name: 'Ciprofloxacin IV',
@@ -572,7 +581,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '400mg Q24H', note: 'Post-HD dosing' }
             },
             notes: 'Good for UTI, respiratory, GI infections. Antipseudomonal.',
-            warnings: ['Tendon rupture risk', 'QT prolongation', 'Avoid in children if possible']
+            warnings: ['Tendon rupture risk', 'QT prolongation', 'Avoid in children if possible'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK535454/'
         },
         'levofloxacin-iv': {
             name: 'Levofloxacin IV',
@@ -588,7 +598,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '500mg Q48H', note: 'Post-HD if applicable' }
             },
             notes: 'Respiratory fluoroquinolone. CAP, UTI, skin infections.',
-            warnings: ['Tendon rupture risk', 'QT prolongation', 'CNS effects']
+            warnings: ['Tendon rupture risk', 'QT prolongation', 'CNS effects'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK546023/'
         }
     },
     'aminoglycosides': {
@@ -606,7 +617,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Per levels', note: 'Load 2mg/kg, redose per levels' }
             },
             notes: 'Traditional: 1-1.7 mg/kg Q8H. Extended interval preferred for most indications.',
-            warnings: ['Nephrotoxic', 'Ototoxic', 'Monitor peak/trough levels', 'Avoid with other nephrotoxins']
+            warnings: ['Nephrotoxic', 'Ototoxic', 'Monitor peak/trough levels', 'Avoid with other nephrotoxins'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK557550/'
         },
         'tobramycin': {
             name: 'Tobramycin',
@@ -622,7 +634,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Per levels', note: 'Load then per levels' }
             },
             notes: 'Better Pseudomonal activity than gentamicin. Inhaled for CF.',
-            warnings: ['Nephrotoxic', 'Ototoxic', 'Monitor levels']
+            warnings: ['Nephrotoxic', 'Ototoxic', 'Monitor levels'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK551695/'
         },
         'amikacin': {
             name: 'Amikacin',
@@ -638,7 +651,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Per levels', note: '7.5mg/kg load, per levels' }
             },
             notes: 'Reserved for resistant organisms. Broader gram-negative activity.',
-            warnings: ['Nephrotoxic', 'Ototoxic', 'Monitor peak (25-35) and trough (<5)']
+            warnings: ['Nephrotoxic', 'Ototoxic', 'Monitor peak (25-35) and trough (<5)'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK430908/'
         }
     },
     'pediatric': {
@@ -656,7 +670,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Q24H', note: 'Dose after dialysis' }
             },
             notes: 'High-dose (80-90 mg/kg/day) for AOM with risk factors.',
-            warnings: ['Rash common', 'Diarrhea']
+            warnings: ['Rash common', 'Diarrhea'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK482250/'
         },
         'amoxicillin-clavulanate': {
             name: 'Amoxicillin-Clavulanate (Augmentin)',
@@ -672,7 +687,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '500mg Q24H', note: 'Post-dialysis' }
             },
             notes: 'High-dose: 90 mg/kg/day amoxicillin component. Use 14:1 ratio for AOM.',
-            warnings: ['GI upset common', 'Take with food', 'Diarrhea']
+            warnings: ['GI upset common', 'Take with food', 'Diarrhea'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK538164/'
         },
         'cephalexin': {
             name: 'Cephalexin (Keflex)',
@@ -688,7 +704,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '250mg Q12-24H', note: 'Post-dialysis' }
             },
             notes: 'First-line for skin/soft tissue infections. Strep pharyngitis.',
-            warnings: ['Cross-reactivity with penicillin (1-2%)']
+            warnings: ['Cross-reactivity with penicillin (1-2%)'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK549864/'
         },
         'azithromycin': {
             name: 'Azithromycin (Zithromax)',
@@ -698,7 +715,8 @@ const antibioticDatabase = {
             neonate: { dose: null, unit: null, frequency: null, maxDaily: null },
             renalAdjust: false,
             notes: 'Total course usually 5 days. CAP: 500mg x 3 days alternative.',
-            warnings: ['QT prolongation', 'GI upset', 'Drug interactions']
+            warnings: ['QT prolongation', 'GI upset', 'Drug interactions'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK557766/'
         },
         'cefdinir': {
             name: 'Cefdinir (Omnicef)',
@@ -714,7 +732,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '300mg post-HD', note: 'After dialysis' }
             },
             notes: 'Alternative for AOM, sinusitis, pharyngitis. Well tolerated.',
-            warnings: ['May cause red stools (iron interaction)', 'Diarrhea']
+            warnings: ['May cause red stools (iron interaction)', 'Diarrhea'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK549881/'
         },
         'trimethoprim-sulfamethoxazole': {
             name: 'TMP-SMX (Bactrim)',
@@ -730,7 +749,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Avoid', note: 'Contraindicated' }
             },
             notes: 'UTI: 3-5 days. MRSA skin: 7-10 days. PCP prophylaxis available.',
-            warnings: ['Hyperkalemia', 'Rash', 'Avoid in G6PD deficiency', 'Sulfa allergy']
+            warnings: ['Hyperkalemia', 'Rash', 'Avoid in G6PD deficiency', 'Sulfa allergy'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK513232/'
         },
         'clindamycin': {
             name: 'Clindamycin (Cleocin)',
@@ -740,7 +760,8 @@ const antibioticDatabase = {
             neonate: { dose: 5, unit: 'mg/kg', frequency: 'Q8H', maxDaily: null },
             renalAdjust: false,
             notes: 'MRSA coverage. Good for skin, bone infections. IV: 600-900mg Q8H.',
-            warnings: ['C. diff risk', 'GI upset common']
+            warnings: ['C. diff risk', 'GI upset common'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK519574/'
         }
     },
     'icu': {
@@ -758,7 +779,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Per levels', note: 'Load 20-25 mg/kg, then per levels' }
             },
             notes: 'Loading dose for severe infections. Target AUC/MIC 400-600.',
-            warnings: ['Nephrotoxic', 'Red man syndrome', 'Monitor AUC or trough']
+            warnings: ['Nephrotoxic', 'Red man syndrome', 'Monitor AUC or trough'],
+            reference: 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7462027/'
         },
         'meropenem-extended': {
             name: 'Meropenem (Extended Infusion)',
@@ -774,7 +796,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '500mg Q12H', note: 'Post-HD' }
             },
             notes: 'Extended infusion improves PK/PD for resistant organisms.',
-            warnings: ['Seizure risk', 'Avoid valproic acid']
+            warnings: ['Seizure risk', 'Avoid valproic acid'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK557755/'
         },
         'daptomycin': {
             name: 'Daptomycin (Cubicin)',
@@ -790,7 +813,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Q48H', note: 'After HD' }
             },
             notes: 'Bacteremia/endocarditis: 8-10 mg/kg. NOT for pneumonia.',
-            warnings: ['CPK monitoring weekly', 'Avoid statins if possible', 'Inactivated by surfactant']
+            warnings: ['CPK monitoring weekly', 'Avoid statins if possible', 'Inactivated by surfactant'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK470407/'
         },
         'linezolid': {
             name: 'Linezolid (Zyvox)',
@@ -800,7 +824,8 @@ const antibioticDatabase = {
             neonate: { dose: 10, unit: 'mg/kg', frequency: 'Q8H', maxDaily: null },
             renalAdjust: false,
             notes: 'MRSA pneumonia, VRE. 100% PO bioavailability.',
-            warnings: ['Myelosuppression (monitor CBC)', 'Serotonin syndrome', 'MAO inhibitor', 'Limit to 2 weeks']
+            warnings: ['Myelosuppression (monitor CBC)', 'Serotonin syndrome', 'MAO inhibitor', 'Limit to 2 weeks'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK539826/'
         },
         'ceftazidime-avibactam': {
             name: 'Ceftazidime-Avibactam (Avycaz)',
@@ -816,7 +841,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '0.94g Q48H', note: 'After HD' }
             },
             notes: 'CRE, ESBL, MDR Pseudomonas. Reserve for resistant organisms.',
-            warnings: ['Monitor for C. diff', 'Neurotoxicity in renal impairment']
+            warnings: ['Monitor for C. diff', 'Neurotoxicity in renal impairment'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK568723/'
         },
         'polymyxin-b': {
             name: 'Polymyxin B',
@@ -826,7 +852,8 @@ const antibioticDatabase = {
             neonate: { dose: null, unit: null, frequency: null, maxDaily: null },
             renalAdjust: false,
             notes: 'Last-line for MDR gram-negatives. Not renally cleared.',
-            warnings: ['Nephrotoxic', 'Neurotoxic', 'Monitor closely']
+            warnings: ['Nephrotoxic', 'Neurotoxic', 'Monitor closely'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK557607/'
         },
         'colistin': {
             name: 'Colistin (Colistimethate)',
@@ -842,7 +869,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Per nomogram', note: 'HD removes drug' }
             },
             notes: 'CBA = colistin base activity. Loading dose critical. Use nomogram.',
-            warnings: ['Nephrotoxic', 'Neurotoxic', 'Narrow therapeutic index']
+            warnings: ['Nephrotoxic', 'Neurotoxic', 'Narrow therapeutic index'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK557607/'
         },
         'micafungin': {
             name: 'Micafungin (Mycamine)',
@@ -852,7 +880,8 @@ const antibioticDatabase = {
             neonate: { dose: 4, unit: 'mg/kg', frequency: 'Q24H', maxDaily: null },
             renalAdjust: false,
             notes: 'Candidemia: 100mg. Esophageal candidiasis: 150mg.',
-            warnings: ['Hepatotoxicity', 'Monitor LFTs']
+            warnings: ['Hepatotoxicity', 'Monitor LFTs'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK555970/'
         },
         'caspofungin': {
             name: 'Caspofungin (Cancidas)',
@@ -862,7 +891,8 @@ const antibioticDatabase = {
             neonate: { dose: 25, unit: 'mg/m²', frequency: 'Q24H', maxDaily: null },
             renalAdjust: false,
             notes: 'Hepatic adjustment needed. Reduce maintenance to 35mg in moderate hepatic impairment.',
-            warnings: ['Hepatotoxicity', 'Monitor LFTs', 'Drug interactions (cyclosporine)']
+            warnings: ['Hepatotoxicity', 'Monitor LFTs', 'Drug interactions (cyclosporine)'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK557574/'
         },
         'fluconazole': {
             name: 'Fluconazole (Diflucan)',
@@ -878,7 +908,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '100% dose post-HD', note: 'Full dose after dialysis' }
             },
             notes: 'Candida sensitive species. 100% PO bioavailability.',
-            warnings: ['Hepatotoxicity', 'QT prolongation', 'Drug interactions (CYP450)']
+            warnings: ['Hepatotoxicity', 'QT prolongation', 'Drug interactions (CYP450)'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK534772/'
         }
     },
     'general': {
@@ -890,7 +921,8 @@ const antibioticDatabase = {
             neonate: { dose: null, unit: null, frequency: null, maxDaily: null },
             renalAdjust: false,
             notes: 'CAP, skin infections, tick-borne illness. Take with food/water.',
-            warnings: ['Photosensitivity', 'Avoid in pregnancy/children <8yr', 'Esophageal irritation']
+            warnings: ['Photosensitivity', 'Avoid in pregnancy/children <8yr', 'Esophageal irritation'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK555888/'
         },
         'nitrofurantoin': {
             name: 'Nitrofurantoin (Macrobid)',
@@ -906,7 +938,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Contraindicated', note: 'Do not use' }
             },
             notes: 'Uncomplicated UTI only. 5-7 day course.',
-            warnings: ['Avoid if CrCl <30', 'Pulmonary toxicity with long-term use', 'Take with food']
+            warnings: ['Avoid if CrCl <30', 'Pulmonary toxicity with long-term use', 'Take with food'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK470526/'
         },
         'ciprofloxacin-po': {
             name: 'Ciprofloxacin PO',
@@ -922,7 +955,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '250-500mg Q24H', note: 'Once daily' }
             },
             notes: 'UTI, respiratory, GI. Avoid antacids, dairy within 2hr.',
-            warnings: ['Tendon rupture', 'QT prolongation', 'CNS effects', 'Avoid in children']
+            warnings: ['Tendon rupture', 'QT prolongation', 'CNS effects', 'Avoid in children'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK535454/'
         },
         'levofloxacin-po': {
             name: 'Levofloxacin PO',
@@ -938,7 +972,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '500mg Q48H', note: 'Post-HD if applicable' }
             },
             notes: 'CAP, sinusitis, UTI. 100% bioavailability.',
-            warnings: ['Tendon rupture', 'QT prolongation', 'Aortic aneurysm risk']
+            warnings: ['Tendon rupture', 'QT prolongation', 'Aortic aneurysm risk'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK546023/'
         },
         'cefuroxime': {
             name: 'Cefuroxime (Ceftin/Zinacef)',
@@ -954,7 +989,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '250mg Q24H', note: 'Post-HD' }
             },
             notes: 'Second-gen ceph. CAP, UTI, sinusitis. IV: 750mg-1.5g Q8H.',
-            warnings: ['Take with food for better absorption (PO)']
+            warnings: ['Take with food for better absorption (PO)'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK538174/'
         },
         'cefpodoxime': {
             name: 'Cefpodoxime (Vantin)',
@@ -970,7 +1006,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Q48H', note: 'Every other day' }
             },
             notes: 'Third-gen oral ceph. Good for step-down therapy.',
-            warnings: ['Take with food', 'GI upset possible']
+            warnings: ['Take with food', 'GI upset possible'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK532906/'
         },
         'erythromycin': {
             name: 'Erythromycin',
@@ -980,7 +1017,8 @@ const antibioticDatabase = {
             neonate: { dose: 10, unit: 'mg/kg', frequency: 'Q6H', maxDaily: null },
             renalAdjust: false,
             notes: 'Alternative for penicillin allergy. Prokinetic at low doses.',
-            warnings: ['QT prolongation', 'GI upset very common', 'Many drug interactions']
+            warnings: ['QT prolongation', 'GI upset very common', 'Many drug interactions'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK532249/'
         },
         'clarithromycin': {
             name: 'Clarithromycin (Biaxin)',
@@ -996,7 +1034,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '250mg Q24H', note: 'Once daily' }
             },
             notes: 'H. pylori regimens. MAC prophylaxis in HIV. Better tolerated than erythromycin.',
-            warnings: ['QT prolongation', 'Drug interactions', 'Metallic taste']
+            warnings: ['QT prolongation', 'Drug interactions', 'Metallic taste'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK544294/'
         }
     },
     // ==========================================
@@ -1017,7 +1056,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '500-1000mg Q24H', note: 'Supplement after HD' }
             },
             notes: 'Loading dose: 40-60 mg/kg IV for status. Titrate by 20 mg/kg/day weekly.',
-            warnings: ['Behavioral changes', 'Irritability common in children', 'Suicidal ideation']
+            warnings: ['Behavioral changes', 'Irritability common in children', 'Suicidal ideation'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK499890/'
         },
         'phenytoin': {
             name: 'Phenytoin (Dilantin)',
@@ -1027,7 +1067,8 @@ const antibioticDatabase = {
             neonate: { dose: 5, unit: 'mg/kg', frequency: 'Q8-12H (load 15-20 mg/kg)', maxDaily: null },
             renalAdjust: false,
             notes: 'Loading: 15-20 mg/kg IV (max 50 mg/min adult, 1-3 mg/kg/min peds). Monitor free levels.',
-            warnings: ['Purple glove syndrome', 'Cardiac monitoring during IV load', 'Gingival hyperplasia', 'Drug interactions (CYP450)']
+            warnings: ['Purple glove syndrome', 'Cardiac monitoring during IV load', 'Gingival hyperplasia', 'Drug interactions (CYP450)'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK532282/'
         },
         'fosphenytoin': {
             name: 'Fosphenytoin (Cerebyx)',
@@ -1037,7 +1078,8 @@ const antibioticDatabase = {
             neonate: { dose: 5, unit: 'mg PE/kg', frequency: 'Q8-12H (load 15-20 mg PE/kg)', maxDaily: null },
             renalAdjust: false,
             notes: 'PE = phenytoin equivalents. Can infuse faster than phenytoin (150 mg PE/min).',
-            warnings: ['Hypotension', 'Cardiac arrhythmias', 'Paresthesias during infusion']
+            warnings: ['Hypotension', 'Cardiac arrhythmias', 'Paresthesias during infusion'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK532282/'
         },
         'phenobarbital': {
             name: 'Phenobarbital',
@@ -1053,7 +1095,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Per levels', note: 'Monitor levels closely' }
             },
             notes: 'First-line for neonatal seizures. Target level 15-40 mcg/mL.',
-            warnings: ['Sedation', 'Respiratory depression', 'Paradoxical excitation in children']
+            warnings: ['Sedation', 'Respiratory depression', 'Paradoxical excitation in children'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK532277/'
         },
         'valproic-acid': {
             name: 'Valproic Acid (Depakene/Depakote)',
@@ -1063,7 +1106,8 @@ const antibioticDatabase = {
             neonate: { dose: null, unit: null, frequency: null, maxDaily: null },
             renalAdjust: false,
             notes: 'IV loading: 20-40 mg/kg. Target level 50-100 mcg/mL. Use Depakote ER for once daily.',
-            warnings: ['Hepatotoxicity (especially <2yo)', 'Pancreatitis', 'Thrombocytopenia', 'Teratogenic', 'Avoid with meropenem']
+            warnings: ['Hepatotoxicity (especially <2yo)', 'Pancreatitis', 'Thrombocytopenia', 'Teratogenic', 'Avoid with meropenem'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK559060/'
         },
         'lacosamide': {
             name: 'Lacosamide (Vimpat)',
@@ -1079,7 +1123,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Max 300mg/day', note: 'Supplement 50% after HD' }
             },
             notes: 'IV loading: 200-400mg over 15-60 min. Titrate by 50-100mg/day weekly.',
-            warnings: ['PR prolongation', 'Dizziness', 'Cardiac conduction effects']
+            warnings: ['PR prolongation', 'Dizziness', 'Cardiac conduction effects'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK532944/'
         },
         'carbamazepine': {
             name: 'Carbamazepine (Tegretol)',
@@ -1089,7 +1134,8 @@ const antibioticDatabase = {
             neonate: { dose: null, unit: null, frequency: null, maxDaily: null },
             renalAdjust: false,
             notes: 'Start low, titrate slowly. Target level 4-12 mcg/mL. Autoinduction occurs.',
-            warnings: ['Aplastic anemia', 'SJS/TEN (HLA-B*1502 in Asians)', 'Hyponatremia', 'Drug interactions']
+            warnings: ['Aplastic anemia', 'SJS/TEN (HLA-B*1502 in Asians)', 'Hyponatremia', 'Drug interactions'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK482455/'
         },
         'oxcarbazepine': {
             name: 'Oxcarbazepine (Trileptal)',
@@ -1105,7 +1151,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '50% dose', note: 'Half dose' }
             },
             notes: 'Better tolerated than carbamazepine. Start 8-10 mg/kg/day, titrate by 5 mg/kg/day weekly.',
-            warnings: ['Hyponatremia (more common than CBZ)', 'Cross-sensitivity with CBZ allergy (25-30%)']
+            warnings: ['Hyponatremia (more common than CBZ)', 'Cross-sensitivity with CBZ allergy (25-30%)'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK519044/'
         },
         'topiramate': {
             name: 'Topiramate (Topamax)',
@@ -1121,7 +1168,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '50% dose', note: 'Supplement after HD' }
             },
             notes: 'Start 1-3 mg/kg/day, titrate by 1-3 mg/kg/day every 1-2 weeks.',
-            warnings: ['Cognitive slowing', 'Kidney stones', 'Metabolic acidosis', 'Oligohidrosis/hyperthermia', 'Weight loss']
+            warnings: ['Cognitive slowing', 'Kidney stones', 'Metabolic acidosis', 'Oligohidrosis/hyperthermia', 'Weight loss'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK554530/'
         },
         'clobazam': {
             name: 'Clobazam (Onfi)',
@@ -1131,7 +1179,8 @@ const antibioticDatabase = {
             neonate: { dose: null, unit: null, frequency: null, maxDaily: null },
             renalAdjust: false,
             notes: 'Lennox-Gastaut adjunct. <30kg: max 20mg/day. ≥30kg: max 40mg/day.',
-            warnings: ['Sedation', 'Drooling', 'Constipation', 'CYP2C19 poor metabolizers need dose reduction']
+            warnings: ['Sedation', 'Drooling', 'Constipation', 'CYP2C19 poor metabolizers need dose reduction'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK545225/'
         },
         'clonazepam': {
             name: 'Clonazepam (Klonopin)',
@@ -1141,7 +1190,8 @@ const antibioticDatabase = {
             neonate: { dose: null, unit: null, frequency: null, maxDaily: null },
             renalAdjust: false,
             notes: 'Start 0.01-0.03 mg/kg/day, titrate by 0.25-0.5 mg every 3 days.',
-            warnings: ['Sedation', 'Respiratory depression', 'Tolerance may develop', 'Avoid abrupt discontinuation']
+            warnings: ['Sedation', 'Respiratory depression', 'Tolerance may develop', 'Avoid abrupt discontinuation'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK556010/'
         },
         'diazepam': {
             name: 'Diazepam (Valium/Diastat)',
@@ -1151,7 +1201,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.2, unit: 'mg/kg', frequency: 'Q6-8H PRN', maxDaily: null },
             renalAdjust: false,
             notes: 'Status: 0.2-0.5 mg/kg IV (max 10mg). Rectal (Diastat): 0.5 mg/kg.',
-            warnings: ['Respiratory depression', 'Hypotension', 'Paradoxical agitation', 'Contains propylene glycol']
+            warnings: ['Respiratory depression', 'Hypotension', 'Paradoxical agitation', 'Contains propylene glycol'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK537022/'
         },
         'lorazepam': {
             name: 'Lorazepam (Ativan)',
@@ -1161,7 +1212,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.05, unit: 'mg/kg', frequency: 'Q6-8H PRN', maxDaily: null },
             renalAdjust: false,
             notes: 'First-line for status epilepticus. Max 0.1 mg/kg/dose (max 4mg). May repeat x1 in 5-10 min.',
-            warnings: ['Respiratory depression', 'Hypotension', 'Contains propylene glycol (IV)', 'Refrigerate IV form']
+            warnings: ['Respiratory depression', 'Hypotension', 'Contains propylene glycol (IV)', 'Refrigerate IV form'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK532890/'
         },
         'midazolam': {
             name: 'Midazolam (Versed)',
@@ -1177,7 +1229,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Reduce dose', note: 'Use with caution' }
             },
             notes: 'Intranasal: 0.2 mg/kg (max 10mg). Buccal: 0.5 mg/kg (max 10mg). IM: 0.2 mg/kg.',
-            warnings: ['Respiratory depression', 'Hypotension', 'Paradoxical reactions']
+            warnings: ['Respiratory depression', 'Hypotension', 'Paradoxical reactions'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK537321/'
         },
         'vigabatrin': {
             name: 'Vigabatrin (Sabril)',
@@ -1193,7 +1246,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Per levels', note: 'Significant reduction' }
             },
             notes: 'First-line for infantile spasms (West syndrome). Start 50 mg/kg/day, increase to 100-150 mg/kg/day.',
-            warnings: ['Irreversible vision loss (retinal toxicity)', 'Requires vision monitoring every 3 months', 'REMS program required']
+            warnings: ['Irreversible vision loss (retinal toxicity)', 'Requires vision monitoring every 3 months', 'REMS program required'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK532934/'
         },
         'acth': {
             name: 'ACTH (Acthar Gel)',
@@ -1203,7 +1257,8 @@ const antibioticDatabase = {
             neonate: { dose: 150, unit: 'units/m²', frequency: 'Q12H x 2-6 weeks', maxDaily: null },
             renalAdjust: false,
             notes: 'Infantile spasms: 150 units/m²/day divided BID. High-dose protocol preferred.',
-            warnings: ['Hypertension', 'Infections', 'Irritability', 'Electrolyte imbalances', 'Cardiac hypertrophy']
+            warnings: ['Hypertension', 'Infections', 'Irritability', 'Electrolyte imbalances', 'Cardiac hypertrophy'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK532880/'
         }
     },
     // ==========================================
@@ -1218,7 +1273,8 @@ const antibioticDatabase = {
             neonate: { dose: 1, unit: 'mg/kg', frequency: 'Q12-24H', maxDaily: null },
             renalAdjust: false,
             notes: 'IV onset 5 min, PO onset 30-60 min. Continuous infusion: 0.1-0.4 mg/kg/hr.',
-            warnings: ['Ototoxicity (high doses, rapid IV)', 'Hypokalemia', 'Hypocalcemia', 'Sulfa allergy']
+            warnings: ['Ototoxicity (high doses, rapid IV)', 'Hypokalemia', 'Hypocalcemia', 'Sulfa allergy'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK499921/'
         },
         'bumetanide': {
             name: 'Bumetanide (Bumex)',
@@ -1228,7 +1284,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.01, unit: 'mg/kg', frequency: 'Q12-24H', maxDaily: null },
             renalAdjust: false,
             notes: '40:1 potency ratio vs furosemide. Better bioavailability than furosemide.',
-            warnings: ['Ototoxicity', 'Hypokalemia', 'Muscle cramps']
+            warnings: ['Ototoxicity', 'Hypokalemia', 'Muscle cramps'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK532877/'
         },
         'hydrochlorothiazide': {
             name: 'Hydrochlorothiazide (HCTZ)',
@@ -1244,7 +1301,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Avoid', note: 'Not effective' }
             },
             notes: 'Synergistic with loop diuretics. Used in nephrogenic DI.',
-            warnings: ['Hypokalemia', 'Hyperuricemia', 'Photosensitivity', 'Sulfa allergy']
+            warnings: ['Hypokalemia', 'Hyperuricemia', 'Photosensitivity', 'Sulfa allergy'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK430766/'
         },
         'spironolactone': {
             name: 'Spironolactone (Aldactone)',
@@ -1260,7 +1318,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Contraindicated', note: 'Do not use' }
             },
             notes: 'Potassium-sparing. Used in heart failure, ascites, hyperaldosteronism.',
-            warnings: ['Hyperkalemia', 'Gynecomastia', 'GI upset']
+            warnings: ['Hyperkalemia', 'Gynecomastia', 'GI upset'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK554421/'
         },
         'metolazone': {
             name: 'Metolazone (Zaroxolyn)',
@@ -3154,6 +3213,16 @@ function updateAntibioticInfoColumn(column) {
         document.getElementById(`${column}-abx-notes-row`).style.display = 'flex';
     } else {
         document.getElementById(`${column}-abx-notes-row`).style.display = 'none';
+    }
+
+    // Show reference link if available
+    const refRow = document.getElementById(`${column}-abx-reference-row`);
+    const refSpan = document.getElementById(`${column}-abx-reference`);
+    if (drug.reference) {
+        refSpan.innerHTML = `<a href="${drug.reference}" target="_blank" rel="noopener noreferrer" style="color: var(--primary-light); text-decoration: underline;">View on PubMed/NCBI</a>`;
+        refRow.style.display = 'flex';
+    } else {
+        refRow.style.display = 'none';
     }
 }
 
