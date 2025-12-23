@@ -64,9 +64,68 @@ header .subtitle {
     color: var(--warning-color);
 }
 
-/* Tab Navigation */
-.tab-nav {
+/* Two Column Layout */
+.dual-column-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.calculator-column {
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.column-header {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+}
+
+.column-label {
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.column-selector {
+    padding: 0.5rem 0.75rem;
+    border: none;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.column-selector:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.column-selector option {
+    color: var(--text-primary);
+    background: var(--card-bg);
+}
+
+/* Responsive - Stack on mobile */
+@media (max-width: 900px) {
+    .dual-column-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tab Navigation - Hidden in dual column mode */
+.tab-nav {
+    display: none;
     background: var(--card-bg);
     margin: 0 1rem;
     border-radius: 8px;
@@ -98,8 +157,9 @@ header .subtitle {
     background: var(--background);
 }
 
-/* Main Content */
+/* Main Content - Hidden in dual column mode */
 main {
+    display: none;
     padding: 1rem;
     max-width: 600px;
     margin: 0 auto;
@@ -109,14 +169,17 @@ main {
 .calculator-section {
     display: none;
     background: var(--card-bg);
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: var(--shadow);
+    border-radius: 0;
+    padding: 1.25rem;
 }
 
 .calculator-section.active {
     display: block;
     animation: fadeIn 0.3s ease;
+}
+
+.calculator-column .calculator-section {
+    box-shadow: none;
 }
 
 @keyframes fadeIn {

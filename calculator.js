@@ -2805,12 +2805,582 @@ function getFrequencyNumber(freq) {
     return 1;
 }
 
-// Initialize - ensure first tab content is visible
-document.addEventListener('DOMContentLoaded', function() {
-    // Set first tab as active
-    document.querySelector('.tab-btn').classList.add('active');
-    document.querySelector('.calculator-section').classList.add('active');
+// ==========================================
+// Dual Column Layout Functions
+// ==========================================
 
-    // Initialize antibiotic list
-    updateAntibioticList();
+// Switch calculator in a column
+function switchCalculator(column, calcType) {
+    const columnEl = document.getElementById(`${column}-column`);
+
+    // Hide all sections in this column
+    columnEl.querySelectorAll('.calculator-section').forEach(section => {
+        section.classList.remove('active');
+    });
+
+    // Show selected section
+    const targetSection = document.getElementById(`${column}-${calcType}`);
+    if (targetSection) {
+        targetSection.classList.add('active');
+    }
+
+    // Initialize medication list if switching to antibiotics
+    if (calcType === 'antibiotics') {
+        updateAntibioticListColumn(column);
+    }
+}
+
+// Switch drip mode for a column
+function switchDripMode(column, mode) {
+    const section = document.getElementById(`${column}-drip-rate`);
+
+    // Update buttons
+    section.querySelectorAll('.mode-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === mode);
+    });
+
+    // Show/hide modes
+    document.getElementById(`${column}-volume-mode`).classList.toggle('active', mode === 'volume');
+    document.getElementById(`${column}-dose-mode`).classList.toggle('active', mode === 'dose');
+
+    // Hide result
+    document.getElementById(`${column}-drip-rate-result`).classList.add('hidden');
+}
+
+// Switch dilution mode for a column
+function switchDilutionMode(column, mode) {
+    const section = document.getElementById(`${column}-dilution`);
+
+    // Update buttons
+    section.querySelectorAll('.mode-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.mode === mode);
+    });
+
+    // Show/hide modes
+    document.getElementById(`${column}-target-conc-mode`).classList.toggle('active', mode === 'target-conc');
+    document.getElementById(`${column}-reconstitution-mode`).classList.toggle('active', mode === 'reconstitution');
+
+    // Hide result
+    document.getElementById(`${column}-dilution-result`).classList.add('hidden');
+}
+
+// Toggle dose weight field
+function toggleDoseWeight(column) {
+    const doseUnit = document.getElementById(`${column}-desired-dose-unit`).value;
+    const weightGroup = document.getElementById(`${column}-dose-weight-group`);
+    weightGroup.style.display = doseUnit === 'mcg/kg/min' ? 'block' : 'none';
+}
+
+// Weight-based dosing for column
+function calculateWeightDoseColumn(column) {
+    const weight = parseFloat(document.getElementById(`${column}-patient-weight`).value);
+    const weightUnit = document.getElementById(`${column}-weight-unit`).value;
+    const dosePerKg = parseFloat(document.getElementById(`${column}-dose-per-kg`).value);
+    const doseUnit = document.getElementById(`${column}-dose-unit`).value;
+    const frequency = parseInt(document.getElementById(`${column}-frequency`).value);
+
+    const resultBox = document.getElementById(`${column}-weight-dose-result`);
+
+    if (isNaN(weight) || weight <= 0) {
+        showError(resultBox, 'Please enter a valid patient weight');
+        return;
+    }
+    if (isNaN(dosePerKg) || dosePerKg <= 0) {
+        showError(resultBox, 'Please enter a valid dose per kg');
+        return;
+    }
+
+    let weightInKg = weightUnit === 'lb' ? weight * 0.453592 : weight;
+    const singleDose = weightInKg * dosePerKg;
+    const dailyDose = singleDose * frequency;
+
+    resultBox.classList.remove('hidden', 'error');
+    document.getElementById(`${column}-single-dose`).textContent = formatNumber(singleDose) + ' ' + doseUnit.replace('/kg', '');
+    document.getElementById(`${column}-daily-dose`).textContent = formatNumber(dailyDose) + ' ' + doseUnit.replace('/kg', '') + '/day';
+    document.getElementById(`${column}-weight-used`).textContent = formatNumber(weightInKg) + ' kg';
+}
+
+// Drip rate for column (volume-based)
+function calculateDripRateColumn(column) {
+    const totalVolume = parseFloat(document.getElementById(`${column}-total-volume`).value);
+    const infusionTime = parseFloat(document.getElementById(`${column}-infusion-time`).value);
+    const timeUnit = document.getElementById(`${column}-time-unit`).value;
+    const dropFactor = parseInt(document.getElementById(`${column}-drop-factor`).value);
+
+    const resultBox = document.getElementById(`${column}-drip-rate-result`);
+
+    if (isNaN(totalVolume) || totalVolume <= 0) {
+        showError(resultBox, 'Please enter a valid volume');
+        return;
+    }
+    if (isNaN(infusionTime) || infusionTime <= 0) {
+        showError(resultBox, 'Please enter a valid infusion time');
+        return;
+    }
+
+    let timeInHours = timeUnit === 'min' ? infusionTime / 60 : infusionTime;
+    const flowRate = totalVolume / timeInHours;
+    const dropRate = (totalVolume * dropFactor) / (timeInHours * 60);
+
+    resultBox.classList.remove('hidden', 'error');
+    document.getElementById(`${column}-flow-rate`).textContent = formatNumber(flowRate) + ' mL/hr';
+    document.getElementById(`${column}-drop-rate`).textContent = Math.round(dropRate) + ' gtt/min';
+    document.getElementById(`${column}-duration`).textContent = formatTime(timeInHours);
+
+    document.getElementById(`${column}-drops-result`).style.display = 'flex';
+    document.getElementById(`${column}-duration-result`).style.display = 'flex';
+    document.getElementById(`${column}-concentration-result`).style.display = 'none';
+}
+
+// Drip rate for column (dose-based)
+function calculateDoseBasedRateColumn(column) {
+    const drugAmount = parseFloat(document.getElementById(`${column}-drug-amount`).value);
+    const drugAmountUnit = document.getElementById(`${column}-drug-amount-unit`).value;
+    const bagVolume = parseFloat(document.getElementById(`${column}-bag-volume`).value);
+    const desiredDose = parseFloat(document.getElementById(`${column}-desired-dose`).value);
+    const desiredDoseUnit = document.getElementById(`${column}-desired-dose-unit`).value;
+
+    const resultBox = document.getElementById(`${column}-drip-rate-result`);
+
+    if (isNaN(drugAmount) || drugAmount <= 0) {
+        showError(resultBox, 'Please enter a valid drug amount');
+        return;
+    }
+    if (isNaN(bagVolume) || bagVolume <= 0) {
+        showError(resultBox, 'Please enter a valid bag volume');
+        return;
+    }
+    if (isNaN(desiredDose) || desiredDose <= 0) {
+        showError(resultBox, 'Please enter a valid desired dose');
+        return;
+    }
+
+    let drugAmountConverted = drugAmount;
+    if (drugAmountUnit === 'mg' && desiredDoseUnit.includes('mcg')) {
+        drugAmountConverted = drugAmount * 1000;
+    } else if (drugAmountUnit === 'mcg' && desiredDoseUnit.includes('mg')) {
+        drugAmountConverted = drugAmount / 1000;
+    }
+
+    const concentration = drugAmountConverted / bagVolume;
+    let dosePerHour = desiredDose;
+
+    if (desiredDoseUnit === 'mcg/min') {
+        dosePerHour = desiredDose * 60;
+    } else if (desiredDoseUnit === 'mcg/kg/min') {
+        const patientWeight = parseFloat(document.getElementById(`${column}-dose-patient-weight`).value);
+        if (isNaN(patientWeight) || patientWeight <= 0) {
+            showError(resultBox, 'Please enter patient weight for mcg/kg/min calculations');
+            return;
+        }
+        dosePerHour = desiredDose * patientWeight * 60;
+    }
+
+    const flowRate = dosePerHour / concentration;
+    const duration = bagVolume / flowRate;
+
+    resultBox.classList.remove('hidden', 'error');
+    document.getElementById(`${column}-flow-rate`).textContent = formatNumber(flowRate) + ' mL/hr';
+
+    let concUnit = drugAmountUnit + '/mL';
+    if (drugAmountUnit === 'mg' && desiredDoseUnit.includes('mcg')) {
+        concUnit = 'mcg/mL';
+    }
+    document.getElementById(`${column}-concentration`).textContent = formatNumber(concentration) + ' ' + concUnit;
+    document.getElementById(`${column}-concentration-result`).style.display = 'flex';
+    document.getElementById(`${column}-duration`).textContent = formatTime(duration);
+    document.getElementById(`${column}-duration-result`).style.display = 'flex';
+    document.getElementById(`${column}-drops-result`).style.display = 'none';
+}
+
+// Dilution calculator for column
+function calculateDilutionColumn(column) {
+    const stockConc = parseFloat(document.getElementById(`${column}-stock-conc`).value);
+    const stockConcUnit = document.getElementById(`${column}-stock-conc-unit`).value;
+    const targetConc = parseFloat(document.getElementById(`${column}-target-conc`).value);
+    const targetConcUnit = document.getElementById(`${column}-target-conc-unit`).value;
+    const finalVolume = parseFloat(document.getElementById(`${column}-final-volume`).value);
+
+    const resultBox = document.getElementById(`${column}-dilution-result`);
+
+    if (isNaN(stockConc) || stockConc <= 0) {
+        showError(resultBox, 'Please enter a valid stock concentration');
+        return;
+    }
+    if (isNaN(targetConc) || targetConc <= 0) {
+        showError(resultBox, 'Please enter a valid target concentration');
+        return;
+    }
+    if (isNaN(finalVolume) || finalVolume <= 0) {
+        showError(resultBox, 'Please enter a valid final volume');
+        return;
+    }
+
+    let stockConverted = stockConc;
+    let targetConverted = targetConc;
+
+    if (stockConcUnit === '%') stockConverted = stockConc * 10;
+    if (targetConcUnit === '%') targetConverted = targetConc * 10;
+
+    if (stockConcUnit === 'mcg/mL' && targetConcUnit === 'mg/mL') {
+        stockConverted = stockConc / 1000;
+    } else if (stockConcUnit === 'mg/mL' && targetConcUnit === 'mcg/mL') {
+        targetConverted = targetConc / 1000;
+    }
+
+    if (targetConverted >= stockConverted) {
+        showError(resultBox, 'Target concentration must be less than stock concentration');
+        return;
+    }
+
+    const stockVolume = (targetConverted * finalVolume) / stockConverted;
+    const diluentVolume = finalVolume - stockVolume;
+
+    resultBox.classList.remove('hidden', 'error');
+    document.getElementById(`${column}-stock-volume`).textContent = formatNumber(stockVolume) + ' mL';
+    document.getElementById(`${column}-diluent-add`).textContent = formatNumber(diluentVolume) + ' mL';
+    document.getElementById(`${column}-final-conc`).textContent = formatNumber(targetConc) + ' ' + targetConcUnit;
+
+    document.getElementById(`${column}-stock-vol-result`).style.display = 'flex';
+    document.getElementById(`${column}-diluent-vol-result`).style.display = 'flex';
+    document.getElementById(`${column}-final-conc-result`).style.display = 'flex';
+    document.getElementById(`${column}-volume-draw-result`).style.display = 'none';
+}
+
+// Reconstitution for column
+function calculateReconstitutionColumn(column) {
+    const powderAmount = parseFloat(document.getElementById(`${column}-powder-amount`).value);
+    const powderUnit = document.getElementById(`${column}-powder-unit`).value;
+    const diluentVolume = parseFloat(document.getElementById(`${column}-diluent-volume`).value);
+    const desiredDose = parseFloat(document.getElementById(`${column}-desired-dose-recon`).value);
+    const desiredDoseUnit = document.getElementById(`${column}-desired-dose-recon-unit`).value;
+
+    const resultBox = document.getElementById(`${column}-dilution-result`);
+
+    if (isNaN(powderAmount) || powderAmount <= 0) {
+        showError(resultBox, 'Please enter a valid powder amount');
+        return;
+    }
+    if (isNaN(diluentVolume) || diluentVolume <= 0) {
+        showError(resultBox, 'Please enter a valid diluent volume');
+        return;
+    }
+    if (isNaN(desiredDose) || desiredDose <= 0) {
+        showError(resultBox, 'Please enter a valid desired dose');
+        return;
+    }
+
+    let powderConverted = powderAmount;
+    let desiredConverted = desiredDose;
+
+    if (powderUnit === 'g') powderConverted = powderAmount * 1000;
+    else if (powderUnit === 'mcg') powderConverted = powderAmount / 1000;
+
+    if (desiredDoseUnit === 'g') desiredConverted = desiredDose * 1000;
+    else if (desiredDoseUnit === 'mcg') desiredConverted = desiredDose / 1000;
+
+    const finalConcentration = powderConverted / diluentVolume;
+    const volumeToDraw = desiredConverted / finalConcentration;
+
+    if (volumeToDraw > diluentVolume) {
+        showError(resultBox, 'Desired dose exceeds available drug. Maximum dose: ' + formatNumber(powderConverted) + ' mg');
+        return;
+    }
+
+    resultBox.classList.remove('hidden', 'error');
+
+    let concUnit = 'mg/mL';
+    if (powderUnit === 'mcg' && desiredDoseUnit === 'mcg') concUnit = 'mcg/mL';
+    else if (powderUnit === 'units') concUnit = 'units/mL';
+
+    document.getElementById(`${column}-final-conc`).textContent = formatNumber(finalConcentration) + ' ' + concUnit;
+    document.getElementById(`${column}-volume-draw`).textContent = formatNumber(volumeToDraw) + ' mL';
+
+    document.getElementById(`${column}-stock-vol-result`).style.display = 'none';
+    document.getElementById(`${column}-diluent-vol-result`).style.display = 'none';
+    document.getElementById(`${column}-final-conc-result`).style.display = 'flex';
+    document.getElementById(`${column}-volume-draw-result`).style.display = 'flex';
+}
+
+// Update antibiotic list for column
+function updateAntibioticListColumn(column) {
+    const category = document.getElementById(`${column}-abx-category`).value;
+    const select = document.getElementById(`${column}-abx-select`);
+    const drugs = antibioticDatabase[category];
+
+    select.innerHTML = '<option value="">-- Select Medication --</option>';
+
+    for (const [key, drug] of Object.entries(drugs)) {
+        const option = document.createElement('option');
+        option.value = key;
+        option.textContent = drug.name;
+        select.appendChild(option);
+    }
+
+    document.getElementById(`${column}-abx-info`).classList.add('hidden');
+    document.getElementById(`${column}-abx-result`).classList.add('hidden');
+}
+
+// Update antibiotic info for column
+function updateAntibioticInfoColumn(column) {
+    const category = document.getElementById(`${column}-abx-category`).value;
+    const drugKey = document.getElementById(`${column}-abx-select`).value;
+    const ageGroup = document.getElementById(`${column}-abx-age-group`).value;
+    const infoBox = document.getElementById(`${column}-abx-info`);
+
+    if (!drugKey) {
+        infoBox.classList.add('hidden');
+        return;
+    }
+
+    const drug = antibioticDatabase[category][drugKey];
+    const dosing = drug[ageGroup];
+
+    if (!dosing || dosing.dose === null) {
+        infoBox.classList.add('hidden');
+        document.getElementById(`${column}-abx-result`).classList.add('hidden');
+        showError(document.getElementById(`${column}-abx-result`),
+            `${drug.name} dosing not established for ${ageGroup === 'neonate' ? 'neonates' : 'this age group'}`);
+        return;
+    }
+
+    infoBox.classList.remove('hidden');
+    document.getElementById(`${column}-abx-standard-dose`).textContent = `${dosing.dose} ${dosing.unit}`;
+    document.getElementById(`${column}-abx-frequency`).textContent = dosing.frequency;
+    document.getElementById(`${column}-abx-max-dose`).textContent = dosing.maxDaily ? `${formatNumber(dosing.maxDaily)} ${dosing.unit === 'g' ? 'g' : 'mg'}/day` : 'Weight-based';
+
+    if (drug.notes) {
+        document.getElementById(`${column}-abx-notes`).textContent = drug.notes;
+        document.getElementById(`${column}-abx-notes-row`).style.display = 'flex';
+    } else {
+        document.getElementById(`${column}-abx-notes-row`).style.display = 'none';
+    }
+}
+
+// Calculate antibiotic dose for column
+function calculateAntibioticDoseColumn(column) {
+    const category = document.getElementById(`${column}-abx-category`).value;
+    const drugKey = document.getElementById(`${column}-abx-select`).value;
+    const weight = parseFloat(document.getElementById(`${column}-abx-patient-weight`).value);
+    const weightUnit = document.getElementById(`${column}-abx-weight-unit`).value;
+    const ageGroup = document.getElementById(`${column}-abx-age-group`).value;
+    const renalFunction = document.getElementById(`${column}-abx-renal`).value;
+    const indication = document.getElementById(`${column}-abx-indication`).value;
+
+    const resultBox = document.getElementById(`${column}-abx-result`);
+
+    if (!drugKey) {
+        showError(resultBox, 'Please select a medication');
+        return;
+    }
+
+    const drug = antibioticDatabase[category][drugKey];
+    const dosing = drug[ageGroup];
+
+    if (!dosing || dosing.dose === null) {
+        showError(resultBox, `${drug.name} dosing not established for ${ageGroup === 'neonate' ? 'neonates' : 'this age group'}`);
+        return;
+    }
+
+    let weightInKg = weight;
+    if (weightUnit === 'lb') weightInKg = weight * 0.453592;
+
+    if (!dosing.fixedDose && (isNaN(weightInKg) || weightInKg <= 0)) {
+        showError(resultBox, 'Please enter a valid patient weight');
+        return;
+    }
+
+    let singleDose;
+    let doseUnit = dosing.unit;
+    let frequency = dosing.frequency;
+
+    if (dosing.fixedDose) {
+        singleDose = dosing.dose;
+    } else {
+        singleDose = weightInKg * dosing.dose;
+        if (dosing.maxDaily) {
+            const freqNum = getFrequencyNumber(frequency);
+            const maxSingle = dosing.maxDaily / freqNum;
+            if (singleDose > maxSingle) singleDose = maxSingle;
+        }
+    }
+
+    let renalAdjustment = null;
+    if (drug.renalAdjust && renalFunction !== 'normal' && drug.renalDosing) {
+        const renalInfo = drug.renalDosing[renalFunction];
+        if (renalInfo) {
+            renalAdjustment = renalInfo;
+            frequency = renalInfo.adjust;
+        }
+    }
+
+    if (indication === 'severe' || indication === 'meningitis') {
+        if (drugKey === 'ceftriaxone') {
+            singleDose = ageGroup === 'adult' ? 2000 : Math.min(weightInKg * 100, 4000);
+            frequency = indication === 'meningitis' ? 'Q12H' : 'Q12-24H';
+        } else if (drugKey === 'meropenem' || drugKey === 'meropenem-extended') {
+            singleDose = ageGroup === 'adult' ? 2000 : Math.min(weightInKg * 40, 2000);
+            frequency = 'Q8H';
+        }
+    }
+
+    let doseDisplay;
+    if (doseUnit === 'g') {
+        doseDisplay = singleDose >= 1000 ? formatNumber(singleDose / 1000) + ' g' : formatNumber(singleDose) + ' g';
+    } else {
+        doseDisplay = formatNumber(singleDose) + ' ' + doseUnit;
+    }
+
+    const freqNum = getFrequencyNumber(frequency);
+    let dailyTotal = singleDose * freqNum;
+    let dailyDisplay = doseUnit === 'g' ? formatNumber(dailyTotal / 1000) + ' g/day' : formatNumber(dailyTotal) + ' ' + doseUnit + '/day';
+
+    resultBox.classList.remove('hidden', 'error');
+    resultBox.innerHTML = `
+        <h3>Recommended Dosing</h3>
+        <div class="result-item">
+            <span class="label">Single Dose:</span>
+            <span class="value">${doseDisplay}</span>
+        </div>
+        <div class="result-item">
+            <span class="label">Frequency:</span>
+            <span class="value">${frequency}</span>
+        </div>
+        <div class="result-item">
+            <span class="label">Daily Total:</span>
+            <span class="value">${dailyDisplay}</span>
+        </div>
+        ${renalAdjustment ? `
+        <div class="result-item" style="background: #fef3c7; padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem;">
+            <span class="label" style="color: #92400e;">Renal Adjustment:</span>
+            <span class="value" style="color: #92400e;">${renalAdjustment.note}</span>
+        </div>
+        ` : ''}
+        <div class="result-item">
+            <span class="label">Route:</span>
+            <span class="value">${drug.route}</span>
+        </div>
+        ${!dosing.fixedDose ? `
+        <div class="result-item">
+            <span class="label">Weight Used:</span>
+            <span class="value">${formatNumber(weightInKg)} kg</span>
+        </div>
+        ` : ''}
+        ${drug.warnings && drug.warnings.length > 0 ? `
+        <div class="warning-box" style="margin-top: 1rem; padding: 0.75rem; background: #fef2f2; border-left: 4px solid #ef4444; border-radius: 0 4px 4px 0;">
+            <strong style="color: #dc2626;">Warnings:</strong>
+            <ul style="margin: 0.5rem 0 0 1rem; color: #7f1d1d;">
+                ${drug.warnings.map(w => `<li>${w}</li>`).join('')}
+            </ul>
+        </div>
+        ` : ''}
+    `;
+}
+
+// Search medication for column
+function searchMedicationColumn(column, query) {
+    const searchResults = document.getElementById(`${column}-search-results`);
+
+    if (!query || query.length < 2) {
+        searchResults.classList.add('hidden');
+        return;
+    }
+
+    query = query.toLowerCase().trim();
+    const results = [];
+
+    for (const [categoryKey, drugs] of Object.entries(antibioticDatabase)) {
+        for (const [drugKey, drug] of Object.entries(drugs)) {
+            const genericName = drug.name.toLowerCase();
+            const aliases = medicationAliases[drugKey] || [];
+
+            let matchType = null;
+            let matchedTerm = null;
+
+            if (genericName.includes(query)) {
+                matchType = 'generic';
+                matchedTerm = drug.name;
+            } else {
+                for (const alias of aliases) {
+                    if (alias.toLowerCase().includes(query)) {
+                        matchType = 'brand';
+                        matchedTerm = alias;
+                        break;
+                    }
+                }
+            }
+
+            if (matchType) {
+                results.push({
+                    categoryKey,
+                    drugKey,
+                    drug,
+                    matchType,
+                    matchedTerm,
+                    aliases,
+                    score: matchedTerm.toLowerCase().startsWith(query) ? 0 : 1
+                });
+            }
+        }
+    }
+
+    results.sort((a, b) => {
+        if (a.score !== b.score) return a.score - b.score;
+        return a.drug.name.localeCompare(b.drug.name);
+    });
+
+    const topResults = results.slice(0, 10);
+
+    if (topResults.length === 0) {
+        searchResults.innerHTML = '<div class="no-results">No medications found</div>';
+        searchResults.classList.remove('hidden');
+        return;
+    }
+
+    let html = '';
+    for (const result of topResults) {
+        const brandNames = result.aliases.length > 0
+            ? result.aliases.map(a => a.charAt(0).toUpperCase() + a.slice(1)).join(', ')
+            : '';
+
+        html += `
+            <div class="search-result-item"
+                 onclick="selectMedicationFromSearchColumn('${column}', '${result.categoryKey}', '${result.drugKey}')">
+                <div class="med-name">${highlightMatch(result.drug.name, query)}</div>
+                ${brandNames ? `<div class="med-brand">Also: ${highlightMatch(brandNames, query)}</div>` : ''}
+                <span class="med-category">${categoryDisplayNames[result.categoryKey]}</span>
+            </div>
+        `;
+    }
+
+    searchResults.innerHTML = html;
+    searchResults.classList.remove('hidden');
+}
+
+// Select medication from search for column
+function selectMedicationFromSearchColumn(column, categoryKey, drugKey) {
+    document.getElementById(`${column}-abx-category`).value = categoryKey;
+    updateAntibioticListColumn(column);
+    document.getElementById(`${column}-abx-select`).value = drugKey;
+    updateAntibioticInfoColumn(column);
+    document.getElementById(`${column}-med-search`).value = '';
+    document.getElementById(`${column}-search-results`).classList.add('hidden');
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize both columns
+    updateAntibioticListColumn('left');
+    updateAntibioticListColumn('right');
+
+    // Close search results when clicking outside
+    document.addEventListener('click', function(e) {
+        ['left', 'right'].forEach(column => {
+            const searchContainer = document.querySelector(`#${column}-column .search-container`);
+            const searchResults = document.getElementById(`${column}-search-results`);
+            if (searchContainer && !searchContainer.contains(e.target)) {
+                searchResults.classList.add('hidden');
+            }
+        });
+    });
 });
