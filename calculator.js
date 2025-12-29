@@ -3436,11 +3436,146 @@ function selectMedicationFromSearchColumn(column, categoryKey, drugKey) {
     document.getElementById(`${column}-search-results`).classList.add('hidden');
 }
 
+// ==========================================
+// Medication Index Panel Functions
+// ==========================================
+
+// Build the medication index panel
+function buildMedicationIndex() {
+    const indexContent = document.getElementById('index-content');
+    if (!indexContent) return;
+
+    let html = '';
+
+    for (const [categoryKey, drugs] of Object.entries(antibioticDatabase)) {
+        const categoryName = categoryDisplayNames[categoryKey] || categoryKey;
+        const drugCount = Object.keys(drugs).length;
+
+        html += `
+            <div class="index-category" data-category="${categoryKey}">
+                <button class="index-category-header" onclick="toggleIndexCategory('${categoryKey}')">
+                    <span class="toggle-icon">▶</span>
+                    <span class="category-name">${categoryName}</span>
+                    <span class="category-count">${drugCount}</span>
+                </button>
+                <div class="index-drug-list" id="index-list-${categoryKey}">
+        `;
+
+        for (const [drugKey, drug] of Object.entries(drugs)) {
+            const refLink = drug.reference
+                ? `<a href="${drug.reference}" target="_blank" rel="noopener noreferrer" class="ref-link" onclick="event.stopPropagation();" title="View reference">📖</a>`
+                : '<span class="no-ref">-</span>';
+
+            html += `
+                <button class="index-drug-item" onclick="selectMedicationFromIndex('${categoryKey}', '${drugKey}')" data-drug="${drugKey}" data-name="${drug.name.toLowerCase()}">
+                    <span class="drug-name">${drug.name}</span>
+                    ${refLink}
+                </button>
+            `;
+        }
+
+        html += `
+                </div>
+            </div>
+        `;
+    }
+
+    indexContent.innerHTML = html;
+}
+
+// Toggle category expansion in index
+function toggleIndexCategory(categoryKey) {
+    const header = document.querySelector(`.index-category[data-category="${categoryKey}"] .index-category-header`);
+    const list = document.getElementById(`index-list-${categoryKey}`);
+
+    if (header && list) {
+        header.classList.toggle('expanded');
+        list.classList.toggle('expanded');
+    }
+}
+
+// Toggle the entire index panel
+function toggleIndexPanel() {
+    const panel = document.getElementById('medication-index');
+    if (panel) {
+        panel.classList.toggle('collapsed');
+    }
+}
+
+// Filter medications in the index
+function filterMedicationIndex(query) {
+    query = query.toLowerCase().trim();
+    const categories = document.querySelectorAll('.index-category');
+
+    categories.forEach(category => {
+        const header = category.querySelector('.index-category-header');
+        const list = category.querySelector('.index-drug-list');
+        const items = category.querySelectorAll('.index-drug-item');
+        let visibleCount = 0;
+
+        items.forEach(item => {
+            const drugName = item.dataset.name || '';
+            const drugKey = item.dataset.drug || '';
+            const aliases = medicationAliases[drugKey] || [];
+            const aliasMatch = aliases.some(alias => alias.toLowerCase().includes(query));
+
+            if (!query || drugName.includes(query) || drugKey.includes(query) || aliasMatch) {
+                item.style.display = 'flex';
+                visibleCount++;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        // Show/hide category based on visible drugs
+        if (visibleCount > 0 || !query) {
+            category.style.display = 'block';
+            // Auto-expand categories when filtering
+            if (query && visibleCount > 0) {
+                header.classList.add('expanded');
+                list.classList.add('expanded');
+            }
+        } else {
+            category.style.display = 'none';
+        }
+
+        // Update count badge
+        const countBadge = header.querySelector('.category-count');
+        if (countBadge) {
+            countBadge.textContent = visibleCount;
+        }
+    });
+}
+
+// Select medication from index and load into left calculator
+function selectMedicationFromIndex(categoryKey, drugKey) {
+    // Switch to medications calculator in left column
+    const selector = document.querySelector('#left-column .column-selector');
+    if (selector) {
+        selector.value = 'antibiotics';
+        switchCalculator('left', 'antibiotics');
+    }
+
+    // Select the medication
+    document.getElementById('left-abx-category').value = categoryKey;
+    updateAntibioticListColumn('left');
+    document.getElementById('left-abx-select').value = drugKey;
+    updateAntibioticInfoColumn('left');
+
+    // Scroll to calculator on mobile
+    if (window.innerWidth <= 900) {
+        document.getElementById('left-column').scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize both columns
     updateAntibioticListColumn('left');
     updateAntibioticListColumn('right');
+
+    // Build medication index
+    buildMedicationIndex();
 
     // Close search results when clicking outside
     document.addEventListener('click', function(e) {

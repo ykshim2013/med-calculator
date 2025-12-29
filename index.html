@@ -16,10 +16,26 @@
         <strong>DISCLAIMER:</strong> This tool is for reference purposes only. Always verify calculations independently and follow institutional protocols. This calculator does not replace clinical judgment or pharmacist consultation.
     </div>
 
-    <!-- Two Column Layout -->
-    <div class="dual-column-container">
-        <!-- LEFT COLUMN -->
-        <div class="calculator-column" id="left-column">
+    <!-- Three Column Layout with Index Panel -->
+    <div class="main-container">
+        <!-- MEDICATION INDEX PANEL -->
+        <aside class="medication-index" id="medication-index">
+            <div class="index-header">
+                <h3>Medication Index</h3>
+                <button class="index-toggle" onclick="toggleIndexPanel()" title="Collapse panel">◀</button>
+            </div>
+            <div class="index-search">
+                <input type="text" id="index-search" placeholder="Filter medications..." oninput="filterMedicationIndex(this.value)">
+            </div>
+            <div class="index-content" id="index-content">
+                <!-- Will be populated by JavaScript -->
+            </div>
+        </aside>
+
+        <!-- Calculator Columns -->
+        <div class="dual-column-container">
+            <!-- LEFT COLUMN -->
+            <div class="calculator-column" id="left-column">
             <div class="column-header">
                 <span class="column-label">Calculator 1</span>
                 <select class="column-selector" onchange="switchCalculator('left', this.value)">
@@ -827,11 +843,12 @@
                 </div>
             </section>
         </div>
+        </div>
     </div>
 
     <footer>
         <p><strong>Important:</strong> Double-check all calculations. Report any errors immediately.</p>
-        <p class="version">Version 2.1 | For educational and reference use only</p>
+        <p class="version">Version 2.2 | For educational and reference use only</p>
     </footer>
 
     <script src="calculator.js"></script>
