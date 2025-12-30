@@ -1,6 +1,6 @@
 # Clinical Medication Calculator
 
-A web-based medication calculation tool for nursing and clinical staff. Includes weight-based dosing, IV drip rate calculations, and drug dilution calculators.
+A web-based medication calculation tool for healthcare professionals. Includes weight-based dosing, IV drip rate calculations, and drug dilution calculators.
 
 ## Features
 

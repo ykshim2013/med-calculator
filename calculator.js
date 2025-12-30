@@ -1334,7 +1334,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.2, unit: 'mg/kg', frequency: 'Q24H', maxDaily: null },
             renalAdjust: false,
             notes: 'Give 30 min before loop diuretic for synergy. Effective even with low GFR.',
-            warnings: ['Profound diuresis with loop diuretics', 'Hypokalemia', 'Hyponatremia']
+            warnings: ['Profound diuresis with loop diuretics', 'Hypokalemia', 'Hyponatremia'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK534841/'
         },
         'amlodipine': {
             name: 'Amlodipine (Norvasc)',
@@ -1344,7 +1345,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.05, unit: 'mg/kg', frequency: 'Q24H', maxDaily: null },
             renalAdjust: false,
             notes: 'Long-acting CCB. Start low, titrate every 1-2 weeks.',
-            warnings: ['Peripheral edema', 'Gingival hyperplasia', 'Headache']
+            warnings: ['Peripheral edema', 'Gingival hyperplasia', 'Headache'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK556031/'
         },
         'lisinopril': {
             name: 'Lisinopril (Zestril)',
@@ -1360,7 +1362,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '25% dose', note: 'Start 2.5mg' }
             },
             notes: 'Proteinuria reduction. Start low and titrate. Monitor K+ and Cr.',
-            warnings: ['Hyperkalemia', 'Angioedema', 'Cough', 'Teratogenic', 'Acute kidney injury risk']
+            warnings: ['Hyperkalemia', 'Angioedema', 'Cough', 'Teratogenic', 'Acute kidney injury risk'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK482230/'
         },
         'enalapril': {
             name: 'Enalapril (Vasotec)',
@@ -1376,7 +1379,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '50% dose', note: 'Post-HD supplementation' }
             },
             notes: 'IV enalaprilat: 0.005-0.01 mg/kg/dose Q8-24H.',
-            warnings: ['Hyperkalemia', 'Angioedema', 'Cough', 'Teratogenic']
+            warnings: ['Hyperkalemia', 'Angioedema', 'Cough', 'Teratogenic'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK557703/'
         },
         'losartan': {
             name: 'Losartan (Cozaar)',
@@ -1386,7 +1390,8 @@ const antibioticDatabase = {
             neonate: { dose: null, unit: null, frequency: null, maxDaily: null },
             renalAdjust: false,
             notes: 'ARB - no cough. Alternative for ACE-I intolerance.',
-            warnings: ['Hyperkalemia', 'Teratogenic', 'Hypotension']
+            warnings: ['Hyperkalemia', 'Teratogenic', 'Hypotension'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK507883/'
         },
         'sodium-bicarbonate': {
             name: 'Sodium Bicarbonate',
@@ -1396,7 +1401,8 @@ const antibioticDatabase = {
             neonate: { dose: 1, unit: 'mEq/kg', frequency: 'PRN (0.5-1 mEq/mL dilution)', maxDaily: null },
             renalAdjust: false,
             notes: 'Acidosis: (base deficit × weight × 0.3). CKD maintenance: 1-2 mEq/kg/day divided.',
-            warnings: ['Hypernatremia', 'Hypokalemia', 'Tissue necrosis if extravasated', 'Avoid with hypocalcemia']
+            warnings: ['Hypernatremia', 'Hypokalemia', 'Tissue necrosis if extravasated', 'Avoid with hypocalcemia'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK482340/'
         },
         'sodium-polystyrene': {
             name: 'Sodium Polystyrene (Kayexalate)',
@@ -1406,7 +1412,8 @@ const antibioticDatabase = {
             neonate: { dose: 1, unit: 'g/kg', frequency: 'Q6H', maxDaily: null },
             renalAdjust: false,
             notes: 'Give with sorbitol orally. Rectal retention enema: hold 30-60 min.',
-            warnings: ['Intestinal necrosis (especially with sorbitol)', 'Sodium loading', 'Constipation', 'Slow onset (hours)']
+            warnings: ['Intestinal necrosis (especially with sorbitol)', 'Sodium loading', 'Constipation', 'Slow onset (hours)'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK519533/'
         },
         'patiromer': {
             name: 'Patiromer (Veltassa)',
@@ -1416,7 +1423,8 @@ const antibioticDatabase = {
             neonate: { dose: null, unit: null, frequency: null, maxDaily: null },
             renalAdjust: false,
             notes: 'Take with food. Separate from other meds by 3 hours.',
-            warnings: ['Hypomagnesemia', 'GI upset', 'Constipation', 'Drug binding interactions']
+            warnings: ['Hypomagnesemia', 'GI upset', 'Constipation', 'Drug binding interactions'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK519029/'
         },
         'sevelamer': {
             name: 'Sevelamer (Renvela)',
@@ -1426,7 +1434,8 @@ const antibioticDatabase = {
             neonate: { dose: null, unit: null, frequency: null, maxDaily: null },
             renalAdjust: false,
             notes: 'Phosphate binder. Give with meals. Adjust based on phosphorus levels.',
-            warnings: ['GI obstruction risk', 'Constipation', 'May bind other medications']
+            warnings: ['GI obstruction risk', 'Constipation', 'May bind other medications'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK551526/'
         },
         'calcitriol': {
             name: 'Calcitriol (Rocaltrol)',
@@ -1436,7 +1445,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.01, unit: 'mcg/kg', frequency: 'Q24H', maxDaily: null },
             renalAdjust: false,
             notes: 'Active vitamin D. Monitor Ca, PO4, PTH. Adjust based on labs.',
-            warnings: ['Hypercalcemia', 'Hyperphosphatemia', 'Soft tissue calcification']
+            warnings: ['Hypercalcemia', 'Hyperphosphatemia', 'Soft tissue calcification'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK540966/'
         },
         'darbepoetin': {
             name: 'Darbepoetin (Aranesp)',
@@ -1446,7 +1456,8 @@ const antibioticDatabase = {
             neonate: { dose: null, unit: null, frequency: null, maxDaily: null },
             renalAdjust: false,
             notes: 'Target Hgb 10-11.5 g/dL. Avoid rapid rise (>1 g/dL in 2 weeks).',
-            warnings: ['Hypertension', 'Thrombosis', 'Pure red cell aplasia', 'Increased mortality if Hgb >11']
+            warnings: ['Hypertension', 'Thrombosis', 'Pure red cell aplasia', 'Increased mortality if Hgb >11'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK539806/'
         },
         'epoetin-alfa': {
             name: 'Epoetin Alfa (Epogen)',
@@ -1456,7 +1467,8 @@ const antibioticDatabase = {
             neonate: { dose: 200, unit: 'units/kg', frequency: 'TIW', maxDaily: null },
             renalAdjust: false,
             notes: 'Start 50-100 units/kg TIW. Adjust by 25% every 4 weeks based on Hgb.',
-            warnings: ['Hypertension', 'Thrombosis', 'Seizures', 'Target Hgb 10-11.5 g/dL']
+            warnings: ['Hypertension', 'Thrombosis', 'Seizures', 'Target Hgb 10-11.5 g/dL'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK536997/'
         }
     },
     // ==========================================
@@ -1477,7 +1489,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '10-25% dose', note: 'Significant reduction' }
             },
             notes: 'TDM: 0.8-2.0 ng/mL. Loading over 24h in 3 divided doses. PO is 70-80% IV dose.',
-            warnings: ['Arrhythmias', 'Visual changes', 'GI upset', 'Hypokalemia increases toxicity']
+            warnings: ['Arrhythmias', 'Visual changes', 'GI upset', 'Hypokalemia increases toxicity'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK556025/'
         },
         'dopamine': {
             name: 'Dopamine',
@@ -1487,7 +1500,8 @@ const antibioticDatabase = {
             neonate: { dose: 5, unit: 'mcg/kg/min', frequency: 'Continuous (range 2-20)', maxDaily: null },
             renalAdjust: false,
             notes: 'Low: 2-5 (renal), Medium: 5-10 (cardiac), High: 10-20 (vasopressor).',
-            warnings: ['Arrhythmias', 'Tissue necrosis if extravasated', 'Tachycardia']
+            warnings: ['Arrhythmias', 'Tissue necrosis if extravasated', 'Tachycardia'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK551686/'
         },
         'dobutamine': {
             name: 'Dobutamine',
@@ -1497,7 +1511,8 @@ const antibioticDatabase = {
             neonate: { dose: 5, unit: 'mcg/kg/min', frequency: 'Continuous (range 2.5-20)', maxDaily: null },
             renalAdjust: false,
             notes: 'Inotrope with mild vasodilation. Start 2.5-5, titrate to effect.',
-            warnings: ['Arrhythmias', 'Hypotension', 'Tachycardia']
+            warnings: ['Arrhythmias', 'Hypotension', 'Tachycardia'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK470431/'
         },
         'epinephrine': {
             name: 'Epinephrine (Adrenaline)',
@@ -1507,7 +1522,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.1, unit: 'mcg/kg/min', frequency: 'Continuous (range 0.01-1)', maxDaily: null },
             renalAdjust: false,
             notes: 'Cardiac arrest: 0.01 mg/kg IV (max 1mg). Anaphylaxis: 0.01 mg/kg IM (max 0.5mg).',
-            warnings: ['Arrhythmias', 'Hypertension', 'Tissue necrosis', 'Myocardial ischemia']
+            warnings: ['Arrhythmias', 'Hypertension', 'Tissue necrosis', 'Myocardial ischemia'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK482160/'
         },
         'norepinephrine': {
             name: 'Norepinephrine (Levophed)',
@@ -1517,7 +1533,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.05, unit: 'mcg/kg/min', frequency: 'Continuous (range 0.01-1)', maxDaily: null },
             renalAdjust: false,
             notes: 'First-line vasopressor for septic shock. Start 0.05-0.1 mcg/kg/min.',
-            warnings: ['Tissue necrosis if extravasated', 'Arrhythmias', 'Peripheral ischemia']
+            warnings: ['Tissue necrosis if extravasated', 'Arrhythmias', 'Peripheral ischemia'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK513222/'
         },
         'milrinone': {
             name: 'Milrinone (Primacor)',
@@ -1533,7 +1550,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '0.2 mcg/kg/min', note: 'Significant reduction' }
             },
             notes: 'Loading dose optional (hypotension risk). PDE3 inhibitor - inodilator.',
-            warnings: ['Hypotension', 'Arrhythmias', 'Thrombocytopenia']
+            warnings: ['Hypotension', 'Arrhythmias', 'Thrombocytopenia'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK532943/'
         },
         'propranolol': {
             name: 'Propranolol (Inderal)',
@@ -1543,7 +1561,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.25, unit: 'mg/kg', frequency: 'Q6H', maxDaily: null },
             renalAdjust: false,
             notes: 'IV: 0.01-0.1 mg/kg (max 1mg) slow push. Also used for hemangiomas.',
-            warnings: ['Bradycardia', 'Hypotension', 'Bronchospasm', 'Hypoglycemia masking']
+            warnings: ['Bradycardia', 'Hypotension', 'Bronchospasm', 'Hypoglycemia masking'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK557801/'
         },
         'atenolol': {
             name: 'Atenolol (Tenormin)',
@@ -1559,7 +1578,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Post-HD', note: 'Give after dialysis' }
             },
             notes: 'Beta-1 selective. Less CNS effects than propranolol.',
-            warnings: ['Bradycardia', 'Hypotension', 'Fatigue']
+            warnings: ['Bradycardia', 'Hypotension', 'Fatigue'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK539844/'
         },
         'hydralazine': {
             name: 'Hydralazine (Apresoline)',
@@ -1575,7 +1595,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Q12-24H', note: 'Extended interval' }
             },
             notes: 'IV: 0.1-0.5 mg/kg/dose Q4-6H (max 20mg). Direct arterial vasodilator.',
-            warnings: ['Reflex tachycardia', 'Lupus-like syndrome', 'Headache']
+            warnings: ['Reflex tachycardia', 'Lupus-like syndrome', 'Headache'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK470296/'
         },
         'nifedipine': {
             name: 'Nifedipine (Procardia)',
@@ -1585,7 +1606,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.25, unit: 'mg/kg', frequency: 'Q6-8H', maxDaily: null },
             renalAdjust: false,
             notes: 'Immediate-release: 0.25-0.5 mg/kg/dose. Extended-release preferred for HTN.',
-            warnings: ['Hypotension', 'Reflex tachycardia', 'Headache', 'Flushing', 'Peripheral edema']
+            warnings: ['Hypotension', 'Reflex tachycardia', 'Headache', 'Flushing', 'Peripheral edema'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK532918/'
         },
         'adenosine': {
             name: 'Adenosine (Adenocard)',
@@ -1595,7 +1617,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.05, unit: 'mg/kg', frequency: 'x1, may increase by 0.05', maxDaily: null },
             renalAdjust: false,
             notes: 'Give rapid IV push followed by flush. Half-life 10 seconds.',
-            warnings: ['Transient asystole', 'Bronchospasm', 'Flushing', 'Chest pressure']
+            warnings: ['Transient asystole', 'Bronchospasm', 'Flushing', 'Chest pressure'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK519049/'
         },
         'amiodarone': {
             name: 'Amiodarone (Cordarone)',
@@ -1605,7 +1628,8 @@ const antibioticDatabase = {
             neonate: { dose: 5, unit: 'mg/kg', frequency: 'Load over 30-60 min', maxDaily: null },
             renalAdjust: false,
             notes: 'Pulseless VT/VF: 5 mg/kg IV bolus. Maintenance: 5-15 mcg/kg/min.',
-            warnings: ['Hypotension', 'Bradycardia', 'Thyroid dysfunction', 'Pulmonary toxicity', 'Hepatotoxicity', 'QT prolongation']
+            warnings: ['Hypotension', 'Bradycardia', 'Thyroid dysfunction', 'Pulmonary toxicity', 'Hepatotoxicity', 'QT prolongation'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK482154/'
         },
         'atropine': {
             name: 'Atropine',
@@ -1615,7 +1639,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.02, unit: 'mg/kg', frequency: 'Q5min (min 0.1mg)', maxDaily: null },
             renalAdjust: false,
             notes: 'Minimum dose 0.1mg to avoid paradoxical bradycardia. ET dose 2-3x IV.',
-            warnings: ['Tachycardia', 'Mydriasis', 'Urinary retention', 'Fever', 'Dry mouth']
+            warnings: ['Tachycardia', 'Mydriasis', 'Urinary retention', 'Fever', 'Dry mouth'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK470551/'
         },
         'captopril': {
             name: 'Captopril (Capoten)',
@@ -1631,7 +1656,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '25% dose', note: 'Post-HD supplement' }
             },
             notes: 'Short-acting ACE-I. Useful for dose titration. Give on empty stomach.',
-            warnings: ['Hyperkalemia', 'Cough', 'Angioedema', 'Neutropenia', 'Proteinuria']
+            warnings: ['Hyperkalemia', 'Cough', 'Angioedema', 'Neutropenia', 'Proteinuria'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK535386/'
         },
         'sildenafil': {
             name: 'Sildenafil (Revatio)',
@@ -1641,7 +1667,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.5, unit: 'mg/kg', frequency: 'Q6-8H', maxDaily: null },
             renalAdjust: false,
             notes: 'Pulmonary hypertension. IV: 0.4 mg/kg load, then 1.6 mg/kg/day.',
-            warnings: ['Hypotension', 'Headache', 'Flushing', 'Contraindicated with nitrates']
+            warnings: ['Hypotension', 'Headache', 'Flushing', 'Contraindicated with nitrates'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK558898/'
         },
         'prostaglandin-e1': {
             name: 'Prostaglandin E1 (Alprostadil)',
@@ -1651,7 +1678,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.05, unit: 'mcg/kg/min', frequency: 'Continuous (range 0.01-0.1)', maxDaily: null },
             renalAdjust: false,
             notes: 'Maintains PDA patency. Start 0.05-0.1, reduce to 0.01 once effective.',
-            warnings: ['Apnea (12%)', 'Fever', 'Hypotension', 'Seizures', 'Have intubation ready']
+            warnings: ['Apnea (12%)', 'Fever', 'Hypotension', 'Seizures', 'Have intubation ready'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK532234/'
         },
         'indomethacin': {
             name: 'Indomethacin (Indocin)',
@@ -1667,7 +1695,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Contraindicated', note: 'Do not use' }
             },
             notes: 'PDA closure. Dosing varies by age: <48h: 0.2, 0.1, 0.1. 2-7d: 0.2, 0.2, 0.2. >7d: 0.2, 0.25, 0.25.',
-            warnings: ['Oliguria', 'GI bleeding', 'IVH worsening', 'NEC risk', 'Platelet dysfunction']
+            warnings: ['Oliguria', 'GI bleeding', 'IVH worsening', 'NEC risk', 'Platelet dysfunction'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK555908/'
         },
         'ibuprofen-lysine': {
             name: 'Ibuprofen Lysine (NeoProfen)',
@@ -1683,7 +1712,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Contraindicated', note: 'Do not use' }
             },
             notes: 'PDA closure alternative to indomethacin. May have less renal effects.',
-            warnings: ['Oliguria', 'GI effects', 'Pulmonary hypertension', 'Platelet dysfunction']
+            warnings: ['Oliguria', 'GI effects', 'Pulmonary hypertension', 'Platelet dysfunction'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK526065/'
         }
     },
     // ==========================================
@@ -1698,7 +1728,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.1, unit: 'mg/kg', frequency: 'Q4-6H PRN', maxDaily: null },
             renalAdjust: false,
             notes: 'MDI: 2-4 puffs Q4-6H. Continuous neb: 0.5 mg/kg/hr (max 20 mg/hr).',
-            warnings: ['Tachycardia', 'Hypokalemia', 'Tremor', 'Hyperglycemia']
+            warnings: ['Tachycardia', 'Hypokalemia', 'Tremor', 'Hyperglycemia'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK482272/'
         },
         'ipratropium': {
             name: 'Ipratropium (Atrovent)',
@@ -1708,7 +1739,8 @@ const antibioticDatabase = {
             neonate: { dose: 125, unit: 'mcg', frequency: 'Q6H', maxDaily: null },
             renalAdjust: false,
             notes: 'Most effective when combined with albuterol. MDI: 2-4 puffs Q6H.',
-            warnings: ['Dry mouth', 'Urinary retention', 'Narrow-angle glaucoma']
+            warnings: ['Dry mouth', 'Urinary retention', 'Narrow-angle glaucoma'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK544250/'
         },
         'budesonide-neb': {
             name: 'Budesonide (Pulmicort)',
@@ -1718,7 +1750,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.25, unit: 'mg', frequency: 'Q12H', maxDaily: null },
             renalAdjust: false,
             notes: 'Croup: 2mg x1 or 1mg x2. Maintenance asthma: 0.25-0.5mg Q12H.',
-            warnings: ['Oral thrush', 'Hoarseness', 'Growth suppression with long-term use']
+            warnings: ['Oral thrush', 'Hoarseness', 'Growth suppression with long-term use'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK563199/'
         },
         'dexamethasone-croup': {
             name: 'Dexamethasone (Croup)',
@@ -1728,7 +1761,8 @@ const antibioticDatabase = {
             neonate: { dose: null, unit: null, frequency: null, maxDaily: null },
             renalAdjust: false,
             notes: 'Single dose for croup. May repeat x1 if needed. PO as effective as IM.',
-            warnings: ['Hyperglycemia', 'Behavioral changes', 'Immunosuppression']
+            warnings: ['Hyperglycemia', 'Behavioral changes', 'Immunosuppression'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK482130/'
         },
         'prednisolone': {
             name: 'Prednisolone (Orapred)',
@@ -1738,7 +1772,8 @@ const antibioticDatabase = {
             neonate: { dose: 1, unit: 'mg/kg', frequency: 'Q24H', maxDaily: null },
             renalAdjust: false,
             notes: 'Asthma exacerbation: 1-2 mg/kg/day x 3-5 days. No taper needed for short course.',
-            warnings: ['Hyperglycemia', 'Mood changes', 'GI upset', 'Immunosuppression']
+            warnings: ['Hyperglycemia', 'Mood changes', 'GI upset', 'Immunosuppression'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK534809/'
         },
         'montelukast': {
             name: 'Montelukast (Singulair)',
@@ -1748,7 +1783,8 @@ const antibioticDatabase = {
             neonate: { dose: null, unit: null, frequency: null, maxDaily: null },
             renalAdjust: false,
             notes: '6-23 months: 4mg granules. 2-5 years: 4mg chewable. 6-14 years: 5mg.',
-            warnings: ['Neuropsychiatric events (boxed warning)', 'Headache', 'GI upset']
+            warnings: ['Neuropsychiatric events (boxed warning)', 'Headache', 'GI upset'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK459301/'
         },
         'fluticasone': {
             name: 'Fluticasone (Flovent)',
@@ -1758,7 +1794,8 @@ const antibioticDatabase = {
             neonate: { dose: null, unit: null, frequency: null, maxDaily: null },
             renalAdjust: false,
             notes: 'Low dose: 88mcg BID. Medium: 220mcg BID. High: 440mcg BID.',
-            warnings: ['Oral thrush', 'Hoarseness', 'Growth suppression', 'Adrenal suppression with high doses']
+            warnings: ['Oral thrush', 'Hoarseness', 'Growth suppression', 'Adrenal suppression with high doses'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK557729/'
         },
         'caffeine-citrate': {
             name: 'Caffeine Citrate (Cafcit)',
@@ -1768,7 +1805,8 @@ const antibioticDatabase = {
             neonate: { dose: 5, unit: 'mg/kg', frequency: 'Q24H (load 20 mg/kg)', maxDaily: null },
             renalAdjust: false,
             notes: 'Apnea of prematurity. Loading: 20 mg/kg IV/PO. Maintenance: 5 mg/kg Q24H.',
-            warnings: ['Tachycardia', 'GI intolerance', 'Irritability', 'Diuresis']
+            warnings: ['Tachycardia', 'GI intolerance', 'Irritability', 'Diuresis'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK532925/'
         },
         'surfactant': {
             name: 'Surfactant (Survanta/Curosurf)',
@@ -1778,7 +1816,8 @@ const antibioticDatabase = {
             neonate: { dose: 100, unit: 'mg/kg', frequency: 'x1-4 doses Q6H PRN (phospholipid)', maxDaily: null },
             renalAdjust: false,
             notes: 'Beractant (Survanta): 100 mg/kg (4 mL/kg). Poractant (Curosurf): 200 mg/kg initial, 100 mg/kg repeat.',
-            warnings: ['Transient bradycardia', 'O2 desaturation', 'Pulmonary hemorrhage', 'Reflux into ETT']
+            warnings: ['Transient bradycardia', 'O2 desaturation', 'Pulmonary hemorrhage', 'Reflux into ETT'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK563185/'
         },
         'racemic-epinephrine': {
             name: 'Racemic Epinephrine',
@@ -1788,7 +1827,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.25, unit: 'mL', frequency: 'Q20min PRN', maxDaily: null },
             renalAdjust: false,
             notes: 'Croup/stridor. Observe 2-4 hours post-treatment for rebound. L-epinephrine 5mL (1mg/mL) is alternative.',
-            warnings: ['Rebound edema', 'Tachycardia', 'Observe post-treatment']
+            warnings: ['Rebound edema', 'Tachycardia', 'Observe post-treatment'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK482160/'
         },
         'palivizumab': {
             name: 'Palivizumab (Synagis)',
@@ -1798,7 +1838,8 @@ const antibioticDatabase = {
             neonate: { dose: 15, unit: 'mg/kg', frequency: 'Monthly during RSV season', maxDaily: null },
             renalAdjust: false,
             notes: 'RSV prophylaxis. Max 5 doses per season. Inject in anterolateral thigh.',
-            warnings: ['Injection site reactions', 'Fever', 'Anaphylaxis rare']
+            warnings: ['Injection site reactions', 'Fever', 'Anaphylaxis rare'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK560861/'
         }
     },
     // ==========================================
@@ -1813,7 +1854,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.5, unit: 'mg/kg', frequency: 'Q24H', maxDaily: null },
             renalAdjust: false,
             notes: 'Give 30 min before breakfast. May open capsule and mix with applesauce.',
-            warnings: ['C. diff risk', 'Hypomagnesemia (long-term)', 'B12 deficiency', 'Fracture risk']
+            warnings: ['C. diff risk', 'Hypomagnesemia (long-term)', 'B12 deficiency', 'Fracture risk'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK539786/'
         },
         'lansoprazole': {
             name: 'Lansoprazole (Prevacid)',
@@ -1823,7 +1865,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.5, unit: 'mg/kg', frequency: 'Q24H', maxDaily: null },
             renalAdjust: false,
             notes: 'Solutabs can be dissolved in water. Give before meals.',
-            warnings: ['C. diff risk', 'Hypomagnesemia', 'B12 deficiency', 'Drug interactions']
+            warnings: ['C. diff risk', 'Hypomagnesemia', 'B12 deficiency', 'Drug interactions'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK551527/'
         },
         'ranitidine': {
             name: 'Famotidine (Pepcid)',
@@ -1839,7 +1882,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Q48H', note: '50% dose' }
             },
             notes: 'H2 blocker. Note: Ranitidine recalled - famotidine is replacement.',
-            warnings: ['Headache', 'Constipation', 'Thrombocytopenia rare']
+            warnings: ['Headache', 'Constipation', 'Thrombocytopenia rare'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK525988/'
         },
         'ondansetron': {
             name: 'Ondansetron (Zofran)',
@@ -1849,7 +1893,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.1, unit: 'mg/kg', frequency: 'Q12H PRN', maxDaily: null },
             renalAdjust: false,
             notes: 'ODT dissolves on tongue. <40kg: 0.15 mg/kg (max 4mg). >40kg: 4-8mg.',
-            warnings: ['QT prolongation (dose-dependent)', 'Headache', 'Constipation', 'Serotonin syndrome']
+            warnings: ['QT prolongation (dose-dependent)', 'Headache', 'Constipation', 'Serotonin syndrome'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK499839/'
         },
         'metoclopramide': {
             name: 'Metoclopramide (Reglan)',
@@ -1865,7 +1910,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '50% dose', note: 'Half dose' }
             },
             notes: 'Prokinetic. Give 30 min before meals. Limit use to 12 weeks (TD risk).',
-            warnings: ['Extrapyramidal symptoms', 'Tardive dyskinesia (boxed warning)', 'Drowsiness', 'QT prolongation']
+            warnings: ['Extrapyramidal symptoms', 'Tardive dyskinesia (boxed warning)', 'Drowsiness', 'QT prolongation'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK519517/'
         },
         'erythromycin-prokinetic': {
             name: 'Erythromycin (Prokinetic)',
@@ -1875,7 +1921,8 @@ const antibioticDatabase = {
             neonate: { dose: 3, unit: 'mg/kg', frequency: 'Q6-8H', maxDaily: null },
             renalAdjust: false,
             notes: 'Low-dose for motility. Tachyphylaxis develops in 2-4 weeks.',
-            warnings: ['QT prolongation', 'GI upset', 'Pyloric stenosis risk in neonates', 'Drug interactions']
+            warnings: ['QT prolongation', 'GI upset', 'Pyloric stenosis risk in neonates', 'Drug interactions'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK532249/'
         },
         'lactulose': {
             name: 'Lactulose (Enulose)',
@@ -1885,7 +1932,8 @@ const antibioticDatabase = {
             neonate: { dose: 2.5, unit: 'mL', frequency: 'Q8-12H', maxDaily: null },
             renalAdjust: false,
             notes: 'Hepatic encephalopathy: titrate to 2-3 soft stools/day. May cause gas/cramping initially.',
-            warnings: ['Flatulence', 'Cramping', 'Electrolyte imbalances with overuse']
+            warnings: ['Flatulence', 'Cramping', 'Electrolyte imbalances with overuse'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK536930/'
         },
         'polyethylene-glycol': {
             name: 'Polyethylene Glycol (Miralax)',
@@ -1895,7 +1943,8 @@ const antibioticDatabase = {
             neonate: { dose: null, unit: null, frequency: null, maxDaily: null },
             renalAdjust: false,
             notes: 'Disimpaction: 1-1.5 g/kg/day x 3 days. Maintenance: 0.4-0.8 g/kg/day.',
-            warnings: ['Bloating', 'Nausea', 'Electrolyte imbalances with excessive use']
+            warnings: ['Bloating', 'Nausea', 'Electrolyte imbalances with excessive use'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK537035/'
         },
         'docusate': {
             name: 'Docusate (Colace)',
@@ -1905,7 +1954,8 @@ const antibioticDatabase = {
             neonate: { dose: 5, unit: 'mg/kg', frequency: 'Q24H', maxDaily: null },
             renalAdjust: false,
             notes: 'Stool softener. 3-12y: 50-150mg/day. >12y: 100-300mg/day.',
-            warnings: ['Cramping', 'Diarrhea', 'May interfere with mineral oil absorption']
+            warnings: ['Cramping', 'Diarrhea', 'May interfere with mineral oil absorption'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK556087/'
         },
         'glycerin-suppository': {
             name: 'Glycerin Suppository',
@@ -1915,7 +1965,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.5, unit: 'infant supp', frequency: 'Q24H PRN', maxDaily: null },
             renalAdjust: false,
             notes: 'Infant suppository or cut adult suppository for neonates. Works in 15-30 min.',
-            warnings: ['Rectal irritation', 'Dependence with regular use']
+            warnings: ['Rectal irritation', 'Dependence with regular use'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK549879/'
         },
         'sucralfate': {
             name: 'Sucralfate (Carafate)',
@@ -1931,7 +1982,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Avoid', note: 'Contraindicated' }
             },
             notes: 'Give on empty stomach. Separate from other meds by 2 hours.',
-            warnings: ['Constipation', 'Aluminum accumulation in renal failure', 'Drug binding']
+            warnings: ['Constipation', 'Aluminum accumulation in renal failure', 'Drug binding'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK551527/'
         },
         'ursodiol': {
             name: 'Ursodiol (Actigall/Urso)',
@@ -1941,7 +1993,8 @@ const antibioticDatabase = {
             neonate: { dose: 10, unit: 'mg/kg', frequency: 'Q12H', maxDaily: null },
             renalAdjust: false,
             notes: 'TPN cholestasis: 20-30 mg/kg/day divided BID-TID. Cystic fibrosis: 20 mg/kg/day.',
-            warnings: ['Diarrhea', 'May not work with calcified stones', 'Hepatotoxicity rare']
+            warnings: ['Diarrhea', 'May not work with calcified stones', 'Hepatotoxicity rare'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK544257/'
         }
     },
     // ==========================================
@@ -1962,7 +2015,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Avoid', note: 'Metabolite accumulation' }
             },
             notes: 'IV:PO ratio = 1:3. Continuous: 0.01-0.05 mg/kg/hr. NAS protocol varies.',
-            warnings: ['Respiratory depression', 'Hypotension', 'Constipation', 'Urinary retention', 'Active metabolite in renal failure']
+            warnings: ['Respiratory depression', 'Hypotension', 'Constipation', 'Urinary retention', 'Active metabolite in renal failure'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK526115/'
         },
         'fentanyl': {
             name: 'Fentanyl',
@@ -1972,7 +2026,8 @@ const antibioticDatabase = {
             neonate: { dose: 1, unit: 'mcg/kg', frequency: 'Q2-4H PRN', maxDaily: null },
             renalAdjust: false,
             notes: 'Continuous: 1-5 mcg/kg/hr. Intranasal: 1.5-2 mcg/kg. Chest wall rigidity at high doses.',
-            warnings: ['Respiratory depression', 'Chest wall rigidity', 'Bradycardia']
+            warnings: ['Respiratory depression', 'Chest wall rigidity', 'Bradycardia'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK459275/'
         },
         'hydromorphone': {
             name: 'Hydromorphone (Dilaudid)',
@@ -1988,7 +2043,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '25% dose', note: 'Extend interval' }
             },
             notes: 'IV:PO = 1:4. 5-7x more potent than morphine.',
-            warnings: ['Respiratory depression', 'Hypotension', 'Constipation']
+            warnings: ['Respiratory depression', 'Hypotension', 'Constipation'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK470393/'
         },
         'acetaminophen': {
             name: 'Acetaminophen (Tylenol)',
@@ -2004,7 +2060,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Q8H', note: 'Extended interval' }
             },
             notes: 'IV: 10-15 mg/kg Q4-6H (≥2yo) or 7.5 mg/kg (neonates). Rectal absorption variable.',
-            warnings: ['Hepatotoxicity in overdose', 'Reduce dose in liver disease']
+            warnings: ['Hepatotoxicity in overdose', 'Reduce dose in liver disease'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK482369/'
         },
         'ibuprofen': {
             name: 'Ibuprofen (Advil/Motrin)',
@@ -2020,7 +2077,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Avoid', note: 'Not dialyzable' }
             },
             notes: 'Anti-inflammatory: 30-50 mg/kg/day. Antipyretic: 5-10 mg/kg/dose.',
-            warnings: ['GI bleeding', 'Renal impairment', 'Platelet dysfunction', 'Avoid in dehydration']
+            warnings: ['GI bleeding', 'Renal impairment', 'Platelet dysfunction', 'Avoid in dehydration'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK547742/'
         },
         'ketorolac': {
             name: 'Ketorolac (Toradol)',
@@ -2036,7 +2094,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Contraindicated', note: 'Do not use' }
             },
             notes: 'Limit to 5 days. 0.5 mg/kg IV Q6H (max 15mg if <50kg, 30mg if >50kg).',
-            warnings: ['GI bleeding', 'Renal impairment', 'Bleeding risk', 'Not for chronic pain']
+            warnings: ['GI bleeding', 'Renal impairment', 'Bleeding risk', 'Not for chronic pain'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK545172/'
         },
         'dexmedetomidine': {
             name: 'Dexmedetomidine (Precedex)',
@@ -2046,7 +2105,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.3, unit: 'mcg/kg/hr', frequency: 'Continuous (range 0.2-0.5)', maxDaily: null },
             renalAdjust: false,
             notes: 'Loading: 0.5-1 mcg/kg over 10 min (often omitted). No respiratory depression.',
-            warnings: ['Bradycardia', 'Hypotension', 'Hypertension with loading dose']
+            warnings: ['Bradycardia', 'Hypotension', 'Hypertension with loading dose'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK513237/'
         },
         'ketamine': {
             name: 'Ketamine',
@@ -2056,7 +2116,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.5, unit: 'mg/kg', frequency: 'IV bolus', maxDaily: null },
             renalAdjust: false,
             notes: 'Procedural sedation: 1-2 mg/kg IV. Continuous: 0.5-2 mg/kg/hr. Give with glycopyrrolate.',
-            warnings: ['Laryngospasm', 'Emergence reactions', 'Increased secretions', 'Increased ICP (controversial)']
+            warnings: ['Laryngospasm', 'Emergence reactions', 'Increased secretions', 'Increased ICP (controversial)'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK470357/'
         },
         'chloral-hydrate': {
             name: 'Chloral Hydrate',
@@ -2066,7 +2127,8 @@ const antibioticDatabase = {
             neonate: { dose: 25, unit: 'mg/kg', frequency: 'x1 for procedures', maxDaily: null },
             renalAdjust: false,
             notes: 'Procedural sedation. Onset 15-30 min. Duration 1-2 hours. Monitor SpO2.',
-            warnings: ['Respiratory depression', 'Paradoxical excitation', 'GI irritation', 'Long half-life of metabolites']
+            warnings: ['Respiratory depression', 'Paradoxical excitation', 'GI irritation', 'Long half-life of metabolites'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK557421/'
         }
     },
     // ==========================================
@@ -2087,7 +2149,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Avoid unless hypokalemic', note: 'Use with extreme caution' }
             },
             notes: 'IV: max 0.5 mEq/kg/hr (1 mEq/kg/hr with monitoring). Max concentration peripheral: 40 mEq/L.',
-            warnings: ['Hyperkalemia', 'Cardiac arrhythmias', 'Tissue necrosis if extravasated', 'GI irritation (PO)']
+            warnings: ['Hyperkalemia', 'Cardiac arrhythmias', 'Tissue necrosis if extravasated', 'GI irritation (PO)'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK470469/'
         },
         'calcium-gluconate': {
             name: 'Calcium Gluconate',
@@ -2097,7 +2160,8 @@ const antibioticDatabase = {
             neonate: { dose: 100, unit: 'mg/kg', frequency: 'Over 10-30 min', maxDaily: null },
             renalAdjust: false,
             notes: '10% solution = 100 mg/mL = 9.3 mg elemental Ca/mL. Cardiac arrest: 60 mg/kg.',
-            warnings: ['Bradycardia with rapid infusion', 'Tissue necrosis if extravasated', 'Incompatible with bicarb', 'Digoxin toxicity potentiation']
+            warnings: ['Bradycardia with rapid infusion', 'Tissue necrosis if extravasated', 'Incompatible with bicarb', 'Digoxin toxicity potentiation'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK557683/'
         },
         'calcium-chloride': {
             name: 'Calcium Chloride',
@@ -2107,7 +2171,8 @@ const antibioticDatabase = {
             neonate: { dose: 20, unit: 'mg/kg', frequency: 'Over 10-30 min', maxDaily: null },
             renalAdjust: false,
             notes: '10% = 100 mg/mL = 27 mg elemental Ca/mL. 3x more elemental Ca than gluconate.',
-            warnings: ['Severe tissue necrosis if extravasated', 'Central line preferred', 'Bradycardia', 'Hypercalcemia']
+            warnings: ['Severe tissue necrosis if extravasated', 'Central line preferred', 'Bradycardia', 'Hypercalcemia'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK557683/'
         },
         'magnesium-sulfate': {
             name: 'Magnesium Sulfate',
@@ -2123,7 +2188,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Avoid', note: 'Use only if critical' }
             },
             notes: 'Asthma: 25-75 mg/kg. Torsades: 25-50 mg/kg. Hypomagnesemia: 25-50 mg/kg.',
-            warnings: ['Hypotension', 'Respiratory depression', 'Heart block', 'Flushing']
+            warnings: ['Hypotension', 'Respiratory depression', 'Heart block', 'Flushing'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK549795/'
         },
         'phosphorus': {
             name: 'Phosphorus (K-Phos/Na-Phos)',
@@ -2139,7 +2205,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Avoid', note: 'Contraindicated' }
             },
             notes: 'Moderate deficit: 0.16-0.32 mmol/kg. Severe: 0.32-0.64 mmol/kg. Choose K-Phos vs Na-Phos based on K+ level.',
-            warnings: ['Hypocalcemia', 'Tissue calcification', 'Hyperkalemia (K-Phos)', 'Infuse over 6 hours']
+            warnings: ['Hypocalcemia', 'Tissue calcification', 'Hyperkalemia (K-Phos)', 'Infuse over 6 hours'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK560698/'
         },
         'vitamin-d': {
             name: 'Vitamin D (Ergocalciferol/Cholecalciferol)',
@@ -2149,7 +2216,8 @@ const antibioticDatabase = {
             neonate: { dose: 400, unit: 'IU', frequency: 'Q24H', maxDaily: 1000 },
             renalAdjust: false,
             notes: 'Prophylaxis: 400 IU/day. Treatment varies by severity. Cholecalciferol (D3) preferred.',
-            warnings: ['Hypercalcemia with overdose', 'Hypercalciuria', 'Monitor Ca and 25-OH vitamin D levels']
+            warnings: ['Hypercalcemia with overdose', 'Hypercalciuria', 'Monitor Ca and 25-OH vitamin D levels'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK532266/'
         },
         'iron-supplement': {
             name: 'Iron (Ferrous Sulfate)',
@@ -2159,7 +2227,8 @@ const antibioticDatabase = {
             neonate: { dose: 2, unit: 'mg/kg elemental', frequency: 'Q24H', maxDaily: null },
             renalAdjust: false,
             notes: 'Ferrous sulfate is 20% elemental iron. Give with vitamin C. Separate from antacids.',
-            warnings: ['GI upset', 'Constipation', 'Dark stools', 'Accidental overdose dangerous in children']
+            warnings: ['GI upset', 'Constipation', 'Dark stools', 'Accidental overdose dangerous in children'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK557376/'
         },
         'zinc-supplement': {
             name: 'Zinc Sulfate',
@@ -2169,7 +2238,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.5, unit: 'mg/kg elemental', frequency: 'Q24H', maxDaily: null },
             renalAdjust: false,
             notes: 'Diarrhea: 10-20mg elemental daily x 10-14 days. Zinc sulfate is 23% elemental zinc.',
-            warnings: ['Nausea', 'Copper deficiency with prolonged use', 'GI upset']
+            warnings: ['Nausea', 'Copper deficiency with prolonged use', 'GI upset'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK493231/'
         }
     },
     // ==========================================
@@ -2184,7 +2254,8 @@ const antibioticDatabase = {
             neonate: { dose: 1, unit: 'mg/kg', frequency: 'Q8H (stress: 25 mg/m²/day)', maxDaily: null },
             renalAdjust: false,
             notes: 'Physiologic replacement: 8-10 mg/m²/day. Stress: 50-100 mg/m²/day divided Q6-8H.',
-            warnings: ['Hyperglycemia', 'Hypertension', 'Immunosuppression', 'Adrenal suppression', 'Growth suppression']
+            warnings: ['Hyperglycemia', 'Hypertension', 'Immunosuppression', 'Adrenal suppression', 'Growth suppression'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK554612/'
         },
         'methylprednisolone': {
             name: 'Methylprednisolone (Solu-Medrol)',
@@ -2194,7 +2265,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.5, unit: 'mg/kg', frequency: 'Q12H', maxDaily: null },
             renalAdjust: false,
             notes: 'Pulse therapy: 30 mg/kg (max 1g) daily x 3 days. Anti-inflammatory: 0.5-1.7 mg/kg/day.',
-            warnings: ['Hyperglycemia', 'Hypertension', 'Immunosuppression', 'GI bleeding', 'Mood changes']
+            warnings: ['Hyperglycemia', 'Hypertension', 'Immunosuppression', 'GI bleeding', 'Mood changes'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK544340/'
         },
         'dexamethasone': {
             name: 'Dexamethasone',
@@ -2204,7 +2276,8 @@ const antibioticDatabase = {
             neonate: { dose: 0.15, unit: 'mg/kg', frequency: 'Q12H (BPD protocol varies)', maxDaily: null },
             renalAdjust: false,
             notes: 'Cerebral edema: 1-2 mg/kg load, then 1-1.5 mg/kg/day. Airway edema: 0.5-2 mg/kg.',
-            warnings: ['Hyperglycemia', 'Hypertension', 'GI bleeding', 'Immunosuppression', 'Adrenal suppression']
+            warnings: ['Hyperglycemia', 'Hypertension', 'GI bleeding', 'Immunosuppression', 'Adrenal suppression'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK482130/'
         },
         'enoxaparin': {
             name: 'Enoxaparin (Lovenox)',
@@ -2220,7 +2293,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Consider UFH', note: 'Enoxaparin not recommended' }
             },
             notes: 'Prophylaxis: 0.5 mg/kg Q12H. Target anti-Xa: 0.5-1.0 (treatment), 0.1-0.3 (prophylaxis).',
-            warnings: ['Bleeding', 'Thrombocytopenia (HIT)', 'Osteoporosis with long-term use']
+            warnings: ['Bleeding', 'Thrombocytopenia (HIT)', 'Osteoporosis with long-term use'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK539865/'
         },
         'heparin': {
             name: 'Heparin (UFH)',
@@ -2230,7 +2304,8 @@ const antibioticDatabase = {
             neonate: { dose: 75, unit: 'units/kg', frequency: 'Bolus then 28 units/kg/hr', maxDaily: null },
             renalAdjust: false,
             notes: 'Target aPTT 60-85 sec or anti-Xa 0.35-0.7. Flush: 10 units/mL.',
-            warnings: ['Bleeding', 'HIT', 'Osteoporosis with long-term use', 'Hyperkalemia']
+            warnings: ['Bleeding', 'HIT', 'Osteoporosis with long-term use', 'Hyperkalemia'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK538247/'
         },
         'insulin-regular': {
             name: 'Regular Insulin',
@@ -2246,7 +2321,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Reduce by 50%', note: 'Significant reduction needed' }
             },
             notes: 'DKA: 0.1 units/kg/hr (no bolus in peds). Hyperkalemia: 0.1 units/kg with D25W.',
-            warnings: ['Hypoglycemia', 'Hypokalemia', 'Cerebral edema risk in DKA']
+            warnings: ['Hypoglycemia', 'Hypokalemia', 'Cerebral edema risk in DKA'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK560673/'
         },
         'octreotide': {
             name: 'Octreotide (Sandostatin)',
@@ -2262,7 +2338,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '50% dose', note: 'Half dose' }
             },
             notes: 'GI bleeding: 1-5 mcg/kg/hr. Chylothorax: 0.5-10 mcg/kg/hr. Hyperinsulinism: 5-20 mcg/kg/day.',
-            warnings: ['Hyperglycemia or hypoglycemia', 'Bradycardia', 'GI upset', 'Cholelithiasis with long-term use']
+            warnings: ['Hyperglycemia or hypoglycemia', 'Bradycardia', 'GI upset', 'Cholelithiasis with long-term use'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK538328/'
         },
         'desmopressin': {
             name: 'Desmopressin (DDAVP)',
@@ -2278,7 +2355,8 @@ const antibioticDatabase = {
                 esrd: { adjust: 'Avoid', note: 'Contraindicated' }
             },
             notes: 'Central DI: 0.1-0.4 mcg IV Q12-24H or 5-20 mcg intranasal. Enuresis: 0.2-0.6 mg PO HS.',
-            warnings: ['Hyponatremia/water intoxication', 'Seizures', 'Restrict fluids with intranasal']
+            warnings: ['Hyponatremia/water intoxication', 'Seizures', 'Restrict fluids with intranasal'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK532946/'
         },
         'acyclovir': {
             name: 'Acyclovir (Zovirax)',
@@ -2294,7 +2372,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '50% dose post-HD', note: 'Give after dialysis' }
             },
             notes: 'Neonatal HSV: 20 mg/kg Q8H x 21 days. Ensure adequate hydration. Infuse over 1 hour.',
-            warnings: ['Nephrotoxicity (crystalluria)', 'Neurotoxicity in renal failure', 'Adequate hydration required', 'Phlebitis']
+            warnings: ['Nephrotoxicity (crystalluria)', 'Neurotoxicity in renal failure', 'Adequate hydration required', 'Phlebitis'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK542180/'
         },
         'fluconazole-peds': {
             name: 'Fluconazole (Pediatric)',
@@ -2310,7 +2389,8 @@ const antibioticDatabase = {
                 esrd: { adjust: '100% dose post-HD', note: 'Full dose after dialysis' }
             },
             notes: 'Neonatal dosing by GA/PNA. Prophylaxis: 3-6 mg/kg. Invasive: 12 mg/kg.',
-            warnings: ['Hepatotoxicity', 'QT prolongation', 'Drug interactions']
+            warnings: ['Hepatotoxicity', 'QT prolongation', 'Drug interactions'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK548300/'
         },
         'vitamin-k': {
             name: 'Vitamin K (Phytonadione)',
@@ -2320,7 +2400,8 @@ const antibioticDatabase = {
             neonate: { dose: 1, unit: 'mg', frequency: 'x1 IM at birth', maxDaily: null },
             renalAdjust: false,
             notes: 'Prophylaxis: 1mg IM at birth. Hemorrhage: 1-5 mg IV slow. IV rate max 1 mg/min.',
-            warnings: ['Anaphylaxis (IV)', 'Give IV slowly over 15-30 min', 'Flushing']
+            warnings: ['Anaphylaxis (IV)', 'Give IV slowly over 15-30 min', 'Flushing'],
+            reference: 'https://www.ncbi.nlm.nih.gov/books/NBK551578/'
         }
     }
 };
