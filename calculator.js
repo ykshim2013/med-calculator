@@ -49,11 +49,16 @@ document.querySelectorAll('#dilution .mode-btn').forEach(btn => {
     });
 });
 
-// Show/hide patient weight field for mcg/kg/min dosing
-document.getElementById('desired-dose-unit').addEventListener('change', function() {
-    const weightGroup = document.getElementById('dose-weight-group');
-    weightGroup.style.display = this.value === 'mcg/kg/min' ? 'block' : 'none';
-});
+// Show/hide patient weight field for mcg/kg/min dosing (legacy - for non-dual-column mode)
+const desiredDoseUnit = document.getElementById('desired-dose-unit');
+if (desiredDoseUnit) {
+    desiredDoseUnit.addEventListener('change', function() {
+        const weightGroup = document.getElementById('dose-weight-group');
+        if (weightGroup) {
+            weightGroup.style.display = this.value === 'mcg/kg/min' ? 'block' : 'none';
+        }
+    });
+}
 
 // ==========================================
 // Weight-Based Dosing Calculator
@@ -2630,12 +2635,12 @@ function selectMedicationFromSearch(categoryKey, drugKey) {
     document.getElementById('search-results').classList.add('hidden');
 }
 
-// Close search results when clicking outside
+// Close search results when clicking outside (legacy - for non-dual-column mode)
 document.addEventListener('click', function(e) {
     const searchContainer = document.querySelector('.search-container');
     const searchResults = document.getElementById('search-results');
 
-    if (searchContainer && !searchContainer.contains(e.target)) {
+    if (searchContainer && searchResults && !searchContainer.contains(e.target)) {
         searchResults.classList.add('hidden');
     }
 });
