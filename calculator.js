@@ -3440,37 +3440,107 @@ function selectMedicationFromSearchColumn(column, categoryKey, drugKey) {
 // Medication Index Panel Functions
 // ==========================================
 
-// Build the medication index panel
+// Category groupings for hierarchical structure
+const categoryGroups = {
+    'Antibiotics': ['iv-common', 'aminoglycosides', 'pediatric'],
+    'Critical Care': ['icu', 'general'],
+    'Specialty Medications': ['antiseizure', 'nephrology', 'cardiac', 'respiratory', 'gi'],
+    'Supportive Care': ['pain-sedation', 'electrolytes', 'other-pediatric']
+};
+
+// Build the medication index panel with hierarchical tree structure
 function buildMedicationIndex() {
     const indexContent = document.getElementById('index-content');
     if (!indexContent) return;
 
     let html = '';
 
-    for (const [categoryKey, drugs] of Object.entries(antibioticDatabase)) {
-        const categoryName = categoryDisplayNames[categoryKey] || categoryKey;
-        const drugCount = Object.keys(drugs).length;
+    // Add summary stats
+    let totalDrugs = 0;
+    let totalWithRef = 0;
+    for (const drugs of Object.values(antibioticDatabase)) {
+        for (const drug of Object.values(drugs)) {
+            totalDrugs++;
+            if (drug.reference) totalWithRef++;
+        }
+    }
+
+    html += `
+        <div class="index-stats">
+            <span class="stat-item"><strong>${totalDrugs}</strong> medications</span>
+            <span class="stat-item"><strong>${totalWithRef}</strong> with references</span>
+        </div>
+    `;
+
+    // Build hierarchical tree
+    for (const [groupName, categoryKeys] of Object.entries(categoryGroups)) {
+        // Count total drugs in group
+        let groupDrugCount = 0;
+        for (const catKey of categoryKeys) {
+            if (antibioticDatabase[catKey]) {
+                groupDrugCount += Object.keys(antibioticDatabase[catKey]).length;
+            }
+        }
 
         html += `
-            <div class="index-category" data-category="${categoryKey}">
-                <button class="index-category-header" onclick="toggleIndexCategory('${categoryKey}')">
-                    <span class="toggle-icon">▶</span>
-                    <span class="category-name">${categoryName}</span>
-                    <span class="category-count">${drugCount}</span>
+            <div class="index-group" data-group="${groupName}">
+                <button class="index-group-header" onclick="toggleIndexGroup('${groupName}')">
+                    <span class="tree-icon">📁</span>
+                    <span class="group-name">${groupName}</span>
+                    <span class="group-count">${groupDrugCount}</span>
+                    <span class="expand-icon">▶</span>
                 </button>
-                <div class="index-drug-list" id="index-list-${categoryKey}">
+                <div class="index-group-content" id="index-group-${groupName.replace(/\s+/g, '-')}">
         `;
 
-        for (const [drugKey, drug] of Object.entries(drugs)) {
-            const refLink = drug.reference
-                ? `<a href="${drug.reference}" target="_blank" rel="noopener noreferrer" class="ref-link" onclick="event.stopPropagation();" title="View reference">📖</a>`
-                : '<span class="no-ref">-</span>';
+        for (const categoryKey of categoryKeys) {
+            if (!antibioticDatabase[categoryKey]) continue;
+
+            const drugs = antibioticDatabase[categoryKey];
+            const categoryName = categoryDisplayNames[categoryKey] || categoryKey;
+            const drugCount = Object.keys(drugs).length;
 
             html += `
-                <button class="index-drug-item" onclick="selectMedicationFromIndex('${categoryKey}', '${drugKey}')" data-drug="${drugKey}" data-name="${drug.name.toLowerCase()}">
-                    <span class="drug-name">${drug.name}</span>
-                    ${refLink}
-                </button>
+                <div class="index-category" data-category="${categoryKey}">
+                    <button class="index-category-header" onclick="toggleIndexCategory('${categoryKey}', event)">
+                        <span class="tree-line">├─</span>
+                        <span class="tree-icon">📂</span>
+                        <span class="category-name">${categoryName}</span>
+                        <span class="category-count">${drugCount}</span>
+                        <span class="expand-icon">▶</span>
+                    </button>
+                    <div class="index-drug-list" id="index-list-${categoryKey}">
+            `;
+
+            const drugEntries = Object.entries(drugs);
+            drugEntries.forEach(([drugKey, drug], index) => {
+                const isLast = index === drugEntries.length - 1;
+                const treeLine = isLast ? '└─' : '├─';
+                const aliases = medicationAliases[drugKey] || [];
+                const aliasText = aliases.length > 0 ? aliases.slice(0, 2).join(', ') : '';
+
+                const refLink = drug.reference
+                    ? `<a href="${drug.reference}" target="_blank" rel="noopener noreferrer" class="ref-link" onclick="event.stopPropagation();" title="View PubMed reference">📖</a>`
+                    : '';
+
+                html += `
+                    <div class="index-drug-item" data-drug="${drugKey}" data-name="${drug.name.toLowerCase()}" data-aliases="${aliases.join(',').toLowerCase()}">
+                        <button class="drug-select-btn" onclick="selectMedicationFromIndex('${categoryKey}', '${drugKey}')">
+                            <span class="tree-line-deep">│  ${treeLine}</span>
+                            <span class="tree-icon-drug">💊</span>
+                            <span class="drug-info">
+                                <span class="drug-name">${drug.name}</span>
+                                ${aliasText ? `<span class="drug-aliases">(${aliasText})</span>` : ''}
+                            </span>
+                        </button>
+                        ${refLink}
+                    </div>
+                `;
+            });
+
+            html += `
+                    </div>
+                </div>
             `;
         }
 
@@ -3483,9 +3553,24 @@ function buildMedicationIndex() {
     indexContent.innerHTML = html;
 }
 
+// Toggle group expansion
+function toggleIndexGroup(groupName) {
+    const group = document.querySelector(`.index-group[data-group="${groupName}"]`);
+    const header = group.querySelector('.index-group-header');
+    const content = document.getElementById(`index-group-${groupName.replace(/\s+/g, '-')}`);
+
+    if (header && content) {
+        header.classList.toggle('expanded');
+        content.classList.toggle('expanded');
+    }
+}
+
 // Toggle category expansion in index
-function toggleIndexCategory(categoryKey) {
-    const header = document.querySelector(`.index-category[data-category="${categoryKey}"] .index-category-header`);
+function toggleIndexCategory(categoryKey, event) {
+    if (event) event.stopPropagation();
+
+    const category = document.querySelector(`.index-category[data-category="${categoryKey}"]`);
+    const header = category.querySelector('.index-category-header');
     const list = document.getElementById(`index-list-${categoryKey}`);
 
     if (header && list) {
@@ -3502,53 +3587,127 @@ function toggleIndexPanel() {
     }
 }
 
-// Filter medications in the index
+// Expand all categories
+function expandAllIndex() {
+    document.querySelectorAll('.index-group-header').forEach(h => h.classList.add('expanded'));
+    document.querySelectorAll('.index-group-content').forEach(c => c.classList.add('expanded'));
+    document.querySelectorAll('.index-category-header').forEach(h => h.classList.add('expanded'));
+    document.querySelectorAll('.index-drug-list').forEach(l => l.classList.add('expanded'));
+}
+
+// Collapse all categories
+function collapseAllIndex() {
+    document.querySelectorAll('.index-group-header').forEach(h => h.classList.remove('expanded'));
+    document.querySelectorAll('.index-group-content').forEach(c => c.classList.remove('expanded'));
+    document.querySelectorAll('.index-category-header').forEach(h => h.classList.remove('expanded'));
+    document.querySelectorAll('.index-drug-list').forEach(l => l.classList.remove('expanded'));
+}
+
+// Filter medications in the index with highlight
 function filterMedicationIndex(query) {
     query = query.toLowerCase().trim();
-    const categories = document.querySelectorAll('.index-category');
+    const groups = document.querySelectorAll('.index-group');
 
-    categories.forEach(category => {
-        const header = category.querySelector('.index-category-header');
-        const list = category.querySelector('.index-drug-list');
-        const items = category.querySelectorAll('.index-drug-item');
-        let visibleCount = 0;
+    // Clear previous highlights
+    document.querySelectorAll('.search-match').forEach(el => {
+        el.innerHTML = el.textContent;
+        el.classList.remove('search-match');
+    });
 
-        items.forEach(item => {
-            const drugName = item.dataset.name || '';
-            const drugKey = item.dataset.drug || '';
-            const aliases = medicationAliases[drugKey] || [];
-            const aliasMatch = aliases.some(alias => alias.toLowerCase().includes(query));
+    if (!query) {
+        // Reset to collapsed state when search is cleared
+        collapseAllIndex();
+        document.querySelectorAll('.index-category').forEach(c => c.style.display = 'block');
+        document.querySelectorAll('.index-drug-item').forEach(i => i.style.display = 'flex');
+        document.querySelectorAll('.index-group').forEach(g => g.style.display = 'block');
 
-            if (!query || drugName.includes(query) || drugKey.includes(query) || aliasMatch) {
-                item.style.display = 'flex';
-                visibleCount++;
+        // Reset counts
+        updateIndexCounts();
+        return;
+    }
+
+    groups.forEach(group => {
+        let groupVisible = false;
+        const categories = group.querySelectorAll('.index-category');
+
+        categories.forEach(category => {
+            const header = category.querySelector('.index-category-header');
+            const list = category.querySelector('.index-drug-list');
+            const items = category.querySelectorAll('.index-drug-item');
+            let visibleCount = 0;
+
+            items.forEach(item => {
+                const drugName = item.dataset.name || '';
+                const drugKey = item.dataset.drug || '';
+                const aliases = (item.dataset.aliases || '').split(',');
+                const aliasMatch = aliases.some(alias => alias.includes(query));
+
+                if (drugName.includes(query) || drugKey.includes(query) || aliasMatch) {
+                    item.style.display = 'flex';
+                    visibleCount++;
+
+                    // Highlight matching text
+                    const nameSpan = item.querySelector('.drug-name');
+                    if (nameSpan && drugName.includes(query)) {
+                        nameSpan.classList.add('search-match');
+                        nameSpan.innerHTML = highlightSearchTerm(nameSpan.textContent, query);
+                    }
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Show/hide category based on visible drugs
+            if (visibleCount > 0) {
+                category.style.display = 'block';
+                header.classList.add('expanded');
+                list.classList.add('expanded');
+                groupVisible = true;
+
+                // Update count badge
+                const countBadge = header.querySelector('.category-count');
+                if (countBadge) countBadge.textContent = visibleCount;
             } else {
-                item.style.display = 'none';
+                category.style.display = 'none';
             }
         });
 
-        // Show/hide category based on visible drugs
-        if (visibleCount > 0 || !query) {
-            category.style.display = 'block';
-            // Auto-expand categories when filtering
-            if (query && visibleCount > 0) {
-                header.classList.add('expanded');
-                list.classList.add('expanded');
-            }
+        // Show/hide group
+        if (groupVisible) {
+            group.style.display = 'block';
+            group.querySelector('.index-group-header').classList.add('expanded');
+            group.querySelector('.index-group-content').classList.add('expanded');
         } else {
-            category.style.display = 'none';
-        }
-
-        // Update count badge
-        const countBadge = header.querySelector('.category-count');
-        if (countBadge) {
-            countBadge.textContent = visibleCount;
+            group.style.display = 'none';
         }
     });
 }
 
+// Highlight search term in text
+function highlightSearchTerm(text, term) {
+    const regex = new RegExp(`(${escapeRegex(term)})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+}
+
+// Update all index counts (used when resetting)
+function updateIndexCounts() {
+    for (const [categoryKey, drugs] of Object.entries(antibioticDatabase)) {
+        const countBadge = document.querySelector(`.index-category[data-category="${categoryKey}"] .category-count`);
+        if (countBadge) {
+            countBadge.textContent = Object.keys(drugs).length;
+        }
+    }
+}
+
 // Select medication from index and load into left calculator
 function selectMedicationFromIndex(categoryKey, drugKey) {
+    // Remove previous selection highlight
+    document.querySelectorAll('.index-drug-item.selected').forEach(el => el.classList.remove('selected'));
+
+    // Add selection highlight
+    const selectedItem = document.querySelector(`.index-drug-item[data-drug="${drugKey}"]`);
+    if (selectedItem) selectedItem.classList.add('selected');
+
     // Switch to medications calculator in left column
     const selector = document.querySelector('#left-column .column-selector');
     if (selector) {
